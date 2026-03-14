@@ -42,7 +42,8 @@ description: Conventions and structure for this Astro blog (QuincySnow). Use whe
 - 博客列表：`site/src/pages/blog/index.astro` → `/blog`
 - 文章详情：`site/src/pages/blog/[...slug].astro` → `/blog/:slug`
 - 关于：`site/src/pages/about.astro` → `/about`
-- 搜索：`site/src/pages/search.astro` → `/search`
+- 标签：`site/src/pages/tags.astro` → `/tags`
+- 搜索为 Header 内弹窗，无独立 `/search` 页面。
 - 新增页面时，在导航或其它入口用 **`withBase('/your-route')`** 链接过去。
 
 ## 导航与 active 状态
@@ -62,6 +63,14 @@ description: Conventions and structure for this Astro blog (QuincySnow). Use whe
 - 全局文案与多语言在 **`site/src/i18n.ts`**，通过 `data-i18n`、`data-i18n-placeholder` 与 Header 内脚本中的 `i18n` 使用（中/英）。
 - 新增需翻译的 UI 时，在 i18n 中增加对应 key，并在组件上使用 `data-i18n="key"` 或占位符 key。
 
+## 文章语言（lang）与中英文版本
+
+- **Frontmatter**：每篇文章在 **`site/src/content.config.ts`** 的 blog schema 中支持可选字段 **`lang: 'zh' | 'en'`**。中文文章必须写 **`lang: zh`**，英文文章必须写 **`lang: en`**。
+- **中文原文**：放在 `site/src/content/blog/` 下，文件名如 `YYYY-MM-DD-slug.md`，frontmatter 中包含 **`lang: zh`**。
+- **英文版本**：同一主题的英文文章使用独立文件，文件名带 **`-en`** 后缀，如 `YYYY-MM-DD-slug-en.md`，frontmatter 中包含 **`lang: en`**。标题、描述与正文为英文；正文可为完整译文或摘要 +「详见中文版」链接。
+- **站内互链**：在英文版正文中引用中文版时，使用**相对路径**（同目录 slug），例如 `[Chinese version](slug-without-en)`，以便在 `base: '/blog'` 下正确解析。
+- **日期与 UI**：站点根据当前界面语言（中/英）显示日期格式（`dateLocale` 在 i18n 中配置）；列表与文章页的日期会随语言切换更新。
+
 ## 布局与样式
 
 - 通用布局：**`site/src/layouts/BlogPost.astro`**（文章与关于页共用）；含代码块顶栏、TOC、全局样式等。
@@ -73,4 +82,5 @@ description: Conventions and structure for this Astro blog (QuincySnow). Use whe
 - [ ] 新链接使用 `withBase('/...')`，未写死根路径 `/xxx`
 - [ ] 若在 Header/导航加入口，使用 HeaderLink 或带 withBase 的 `<a>`
 - [ ] 新 head 资源（favicon、字体等）使用 withBase
+- [ ] 新文章：中文稿加 `lang: zh`；英文稿用 `-en.md` 且加 `lang: en`；正文内跨语言引用用相对 slug
 - [ ] 构建通过：`cd site && bun run build`

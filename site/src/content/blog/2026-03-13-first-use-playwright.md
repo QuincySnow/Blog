@@ -9,6 +9,7 @@ tags:
   - mcp
   - browser-automation
   - 教程
+lang: zh
 ---
 
 Playwright MCP 是 Microsoft 开发的 Model Context Protocol 服务器，提供浏览器自动化能力。使用 MCP 可以在各种 AI 编程助手中实现浏览器自动化，无需编写测试代码。

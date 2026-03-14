@@ -11,6 +11,7 @@ tags:
   - 隔离
   - docker
   - seatbelt
+lang: zh
 ---
 
 Gemini CLI 沙盒环境通过隔离潜在危险的操作（如 Shell 命令和文件修改）与宿主机系统，提供了一层至关重要的安全防护。

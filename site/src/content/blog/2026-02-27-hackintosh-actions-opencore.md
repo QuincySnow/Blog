@@ -13,6 +13,7 @@ tags:
   - OCAT
   - ProperTree
   - NootRX
+lang: zh
 ---
 
 ## 前言

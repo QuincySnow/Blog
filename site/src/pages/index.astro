@@ -15,6 +15,7 @@ const searchIndex = allPosts.map((p) => ({
 	title: p.data.title,
 	tags: p.data.tags ?? [],
 	pubDate: p.data.pubDate.toISOString(),
+	lang: p.data.lang ?? 'zh',
 }));
 ---
 
@@ -84,6 +85,11 @@ const searchIndex = allPosts.map((p) => ({
 			.more-link:hover {
 				text-decoration: underline;
 			}
+			.post-lang-en { display: none; }
+			[lang="zh-CN"] .post-lang-zh { display: block; }
+			[lang="zh-CN"] .post-lang-en { display: none; }
+			[lang="en"] .post-lang-zh { display: none; }
+			[lang="en"] .post-lang-en { display: block; }
 		</style>
 	</head>
 	<body class="home">
@@ -96,8 +102,10 @@ const searchIndex = allPosts.map((p) => ({
 			<h2 class="recent-title" data-i18n="home.recentTitle">最近文章</h2>
 			<ul class="home-posts animate-stagger-children">
 				{
-					recentPosts.map((post) => (
-						<li>
+					recentPosts.map((post) => {
+						const postLang = post.data.lang ?? 'zh';
+						return (
+						<li class:list={['post-lang-' + postLang]} data-post-lang={postLang}>
 							<a href={withBase(`/blog/${post.id}/`)} class="transition-colors duration-200 hover-lift">
 								<span class="post-title">{post.data.title}</span>
 								<span class="post-date">
@@ -105,7 +113,7 @@ const searchIndex = allPosts.map((p) => ({
 								</span>
 							</a>
 						</li>
-					))
+					); })
 				}
 			</ul>
 			<a href={withBase('/blog/')} class="more-link transition-colors duration-200 hover-scale" data-i18n="home.morePosts">全部文章 →</a>

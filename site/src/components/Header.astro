@@ -8,6 +8,7 @@ export interface SearchIndexItem {
 	title: string;
 	tags: string[];
 	pubDate: string;
+	lang?: string;
 }
 
 interface Props {
@@ -18,6 +19,9 @@ const { searchIndex = [] } = Astro.props;
 const searchIndexJson = JSON.stringify(searchIndex);
 ---
 
+<script is:inline>
+	(function(){ var l = localStorage.getItem('lang'); if (l === 'en' || l === 'zh') document.documentElement.lang = l === 'zh' ? 'zh-CN' : 'en'; })();
+</script>
 <header>
 	<nav>
 		<h2><a href={withBase('/')} class="transition-colors duration-200">{SITE_TITLE}</a></h2>
@@ -118,8 +122,18 @@ const searchIndexJson = JSON.stringify(searchIndex);
 			var pathname = window.location.pathname || '/';
 			var path = (basePath ? pathname.replace(new RegExp('^' + basePath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), '') : pathname).replace(/\/$/, '') || '/';
 			if (path === '/tags') document.title = i18n[lang].tags.documentTitle;
+			else if (path === '/blog') document.title = i18n[lang].blog.documentTitle;
 			else if (path === '/about') document.title = i18n[lang].about.documentTitle;
 			else document.title = i18n[lang].site.title;
+			formatAllDates(lang);
+		}
+		function formatAllDates(lang) {
+			var locale = i18n[lang] && i18n[lang].dateLocale ? i18n[lang].dateLocale : (lang === 'zh' ? 'zh-CN' : 'en-US');
+			var opts = { year: 'numeric', month: 'short', day: 'numeric' };
+			document.querySelectorAll('time[data-iso-date]').forEach(function (el) {
+				var iso = el.getAttribute('data-iso-date');
+				if (iso) el.textContent = new Date(iso).toLocaleDateString(locale, opts);
+			});
 		}
 		function openSearchOverlay(initialQuery) {
 			var overlay = document.getElementById('search-overlay');
@@ -148,28 +162,32 @@ const searchIndexJson = JSON.stringify(searchIndex);
 			var resultsEl = document.getElementById('search-overlay-results');
 			var index = window.__SEARCH_INDEX__;
 			if (!input || !resultsEl || !Array.isArray(index)) return;
+			var currentLang = getLang();
 			var q = (input.value || '').trim().toLowerCase();
 			var list = index.filter(function (item) {
+				var itemLang = item.lang || 'zh';
+				if (itemLang !== currentLang) return false;
 				if (!q) return true;
 				var titleMatch = (item.title || '').toLowerCase().indexOf(q) >= 0;
 				var tagsMatch = (item.tags || []).some(function (t) { return t.toLowerCase().indexOf(q) >= 0; });
 				return titleMatch || tagsMatch;
 			});
-			var noResultsLabel = document.documentElement.lang && document.documentElement.lang.startsWith('zh') ? '没有匹配的文章' : 'No matching posts.';
+			var noResultsLabel = i18n[currentLang].search.noResults;
 			if (list.length === 0) {
 				resultsEl.innerHTML = '<p class="search-overlay-no-results">' + noResultsLabel + '</p>';
 				resultsEl.style.display = 'block';
 				return;
 			}
 			var html = '<ul class="search-overlay-list">';
+			var locale = i18n[currentLang].dateLocale || (currentLang === 'zh' ? 'zh-CN' : 'en-US');
 			list.slice(0, 12).forEach(function (item) {
 				var href = basePath + '/blog/' + item.id + '/';
-				var dateStr = item.pubDate ? new Date(item.pubDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) : '';
+				var dateStr = item.pubDate ? new Date(item.pubDate).toLocaleDateString(locale, { month: 'short', day: 'numeric', year: 'numeric' }) : '';
 				var tagsStr = (item.tags && item.tags.length) ? item.tags.slice(0, 4).join(' · ') : '';
 				html += '<li><a href="' + href + '"><span class="search-overlay-result-title">' + escapeHtml(item.title) + '</span><span class="search-overlay-result-meta">' + dateStr + (tagsStr ? ' · ' + escapeHtml(tagsStr) : '') + '</span></a></li>';
 			});
 			html += '</ul>';
-			if (list.length > 12) html += '<p class="search-overlay-more">' + (list.length - 12) + ' more…</p>';
+			if (list.length > 12) html += '<p class="search-overlay-more">' + (list.length - 12) + ' ' + i18n[currentLang].search.moreResults + '</p>';
 			resultsEl.innerHTML = html;
 			resultsEl.style.display = 'block';
 		}

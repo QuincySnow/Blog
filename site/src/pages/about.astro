@@ -1,14 +1,17 @@
 ---
 import Layout from '../layouts/BlogPost.astro';
+import { DEFAULT_LANG, i18n } from '../i18n';
+
+const meta = i18n[DEFAULT_LANG].about;
 ---
 
 <Layout
-	title="关于"
-	description="关于我"
+	title={meta.title}
+	description={meta.description}
 	pubDate={new Date()}
 	dataI18nTitle="about.title"
 >
-	<p class="about-placeholder">— · —</p>
+	<p class="about-placeholder" data-i18n="about.placeholder">— · —</p>
 	<!-- 待补充：在此处填写关于页内容 -->
 </Layout>
 <style>

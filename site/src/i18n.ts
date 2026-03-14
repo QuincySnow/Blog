@@ -9,6 +9,10 @@ export const i18n = {
 			about: 'About',
 			search: 'Search',
 		},
+		blog: {
+			documentTitle: 'Articles - QuincySnow',
+			description: 'All posts',
+		},
 		theme: {
 			light: 'Light',
 			dark: 'Dark',
@@ -29,18 +33,22 @@ export const i18n = {
 			label: 'Search posts',
 			placeholder: 'Search by title or tags…',
 			noResults: 'No matching posts.',
+			moreResults: 'more…',
 			pageTitle: 'Search',
 			pageDescription: 'Search posts',
 			documentTitle: 'Search - QuincySnow',
 		},
 		tags: {
 			title: 'Tags',
+			description: 'Browse posts by tag',
 			documentTitle: 'Tags - QuincySnow',
+			moreResults: 'more…',
 		},
 		about: {
 			title: 'About',
 			description: 'About me',
 			documentTitle: 'About - QuincySnow',
+			placeholder: '— · —',
 		},
 		post: {
 			lastUpdated: 'Last updated on',
@@ -56,6 +64,7 @@ export const i18n = {
 		site: {
 			title: 'QuincySnow',
 		},
+		dateLocale: 'en-US',
 	},
 	zh: {
 		nav: {
@@ -64,6 +73,10 @@ export const i18n = {
 			tags: '标签',
 			about: '关于',
 			search: '搜索',
+		},
+		blog: {
+			documentTitle: '文章 - QuincySnow',
+			description: '全部文章',
 		},
 		theme: {
 			light: '浅色',
@@ -85,18 +98,22 @@ export const i18n = {
 			label: '搜索文章',
 			placeholder: '按标题、标签搜索…',
 			noResults: '没有匹配的文章',
+			moreResults: '篇更多…',
 			pageTitle: '搜索',
 			pageDescription: '搜索文章',
 			documentTitle: '搜索 - QuincySnow',
 		},
 		tags: {
 			title: '标签',
+			description: '按标签浏览文章',
 			documentTitle: '标签 - QuincySnow',
+			moreResults: '篇更多…',
 		},
 		about: {
 			title: '关于',
 			description: '关于我',
 			documentTitle: '关于 - QuincySnow',
+			placeholder: '— · —',
 		},
 		post: {
 			lastUpdated: '更新于',
@@ -112,6 +129,7 @@ export const i18n = {
 		site: {
 			title: 'QuincySnow',
 		},
+		dateLocale: 'zh-CN',
 	},
 } as const;
 

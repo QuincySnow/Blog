@@ -3,7 +3,10 @@ import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import { SITE_TITLE, withBase } from '../consts';
+import { withBase } from '../consts';
+import { DEFAULT_LANG, i18n } from '../i18n';
+
+const meta = i18n[DEFAULT_LANG].tags;
 
 const allPosts = await getCollection('blog');
 const tagCount = new Map<string, number>();
@@ -30,7 +33,7 @@ const searchIndex = allPosts
 <!doctype html>
 <html lang="zh-CN">
 	<head>
-		<BaseHead title={`${SITE_TITLE} - 标签`} description="文章标签" />
+		<BaseHead title={meta.documentTitle} description={meta.description} />
 		<style>
 			.tags-page-title {
 				margin: 0 0 1.5rem;

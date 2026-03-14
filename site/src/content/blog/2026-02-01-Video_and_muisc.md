@@ -12,6 +12,7 @@ tags:
   - mpv
   - libvlc
   - modern-ui
+lang: zh
 ---
 
 如果你还在用 VLC 的灰扑扑界面忍受着过时的菜单栏和工具栏，那么是时候转向这些**现代化开源播放器**了。它们基于强大内核（LibVLC 或 MPV），但 UI 彻底拥抱 2026 年的设计语言：圆角、Mica/Acrylic、深色模式、手势、极简布局。

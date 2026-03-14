@@ -14,6 +14,7 @@ tags:
   - curve-optimizer
   - 教程
   - 硬件
+lang: zh
 ---
 
 AM4 平台（Ryzen 2000~5000 系列，包括 3000/5000 X3D 型号）在 **Windows 11 25H2**（2025 更新版，代号 Windows 11 2025 Update）及更高版本下**完全兼容且官方支持**。AMD 和 Microsoft 都没有在 25H2 引入针对 AM4 的新硬件门槛，平台仍能流畅运行，并通过最新驱动获得稳定性提升。

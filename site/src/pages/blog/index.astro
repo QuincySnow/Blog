@@ -5,7 +5,10 @@ import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE, withBase } from '../../consts';
+import { withBase } from '../../consts';
+import { DEFAULT_LANG, i18n } from '../../i18n';
+
+const meta = i18n[DEFAULT_LANG].blog;
 
 const allPosts = await getCollection('blog');
 const posts = allPosts
@@ -16,13 +19,14 @@ const searchIndex = posts.map((p) => ({
 	title: p.data.title,
 	tags: p.data.tags ?? [],
 	pubDate: p.data.pubDate.toISOString(),
+	lang: p.data.lang ?? 'zh',
 }));
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={meta.documentTitle} description={meta.description} />
 		<style>
 			.blog-list {
 				list-style: none;
@@ -79,6 +83,11 @@ const searchIndex = posts.map((p) => ({
 				font-size: 1.5rem;
 				color: rgb(var(--text-heading));
 			}
+			.post-lang-en { display: none; }
+			[lang="zh-CN"] .post-lang-zh { display: block; }
+			[lang="zh-CN"] .post-lang-en { display: none; }
+			[lang="en"] .post-lang-zh { display: none; }
+			[lang="en"] .post-lang-en { display: block; }
 		</style>
 	</head>
 	<body>
@@ -88,8 +97,10 @@ const searchIndex = posts.map((p) => ({
 			<section aria-label="Article list">
 				<ul class="blog-list animate-stagger-children">
 					{
-						posts.map((post) => (
-							<li>
+						posts.map((post) => {
+							const postLang = post.data.lang ?? 'zh';
+							return (
+							<li class:list={['post-lang-' + postLang]} data-post-lang={postLang}>
 								<a href={withBase(`/blog/${post.id}/`)} class="hover-lift">
 									{post.data.heroImage && (
 										<Image width={720} height={360} src={post.data.heroImage} alt="" />
@@ -107,7 +118,7 @@ const searchIndex = posts.map((p) => ({
 									)}
 								</a>
 							</li>
-						))
+						); })
 					}
 				</ul>
 			</section>

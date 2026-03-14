@@ -9,6 +9,7 @@ tags:
   - shell
   - terminal
   - development
+lang: zh
 ---
 
 # Fish Shell 终极配置指南：从安装到全栈开发环境

@@ -10,6 +10,7 @@ tags:
   - pip
   - package-management
   - development
+lang: zh
 ---
 
 # 迁移到 uv：Python 包管理的革命性升级

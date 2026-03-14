@@ -12,6 +12,7 @@ tags:
   - deb822
   - trixie
   - fish-shell
+lang: zh
 ---
 
 **适用系统**：
