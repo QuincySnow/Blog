@@ -39,7 +39,8 @@
 }
 [data-theme="dark"] {
 	--bg: 22, 24, 29;
-	--bg-gradient: rgba(22, 24, 29, 0.98), rgb(18, 20, 25);
+	/* 渐变末端与 --bg 一致，避免 600px 处分界色差 */
+	--bg-gradient: rgba(22, 24, 29, 0.98), rgb(22, 24, 29);
 	--bg-header: 22, 24, 29;
 	--text: 200, 204, 214;
 	--text-heading: 230, 232, 238;
@@ -66,6 +67,8 @@
 }
 html {
 	scroll-behavior: smooth;
+	/* 预留滚动条空间，避免切换主题时滚动条显隐导致导航/内容右移 */
+	scrollbar-gutter: stable;
 }
 body {
 	display: flex;
@@ -75,15 +78,13 @@ body {
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	background: linear-gradient(var(--bg-gradient)) no-repeat;
 	background-color: rgb(var(--bg));
-	background-size: 100% 600px;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
 	color: rgb(var(--text));
 	font-size: 20px;
 	line-height: 1.7;
-	transition: background-color var(--duration-normal) var(--ease-out);
+	transition: background-color var(--duration-normal) var(--ease-out), color var(--duration-normal) var(--ease-out);
 }
 @media (prefers-reduced-motion: reduce) {
 	html {

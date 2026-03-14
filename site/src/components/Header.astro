@@ -238,8 +238,9 @@ const searchIndexJson = JSON.stringify(searchIndex);
 	header {
 		margin: 0;
 		padding: 0 1em;
-		background: rgb(var(--bg-header));
+		background-color: rgb(var(--bg-header));
 		box-shadow: 0 2px 8px rgba(var(--text-heading), 0.08);
+		transition: background-color var(--duration-normal) var(--ease-out), box-shadow var(--duration-normal) var(--ease-out);
 	}
 	[data-theme="dark"] header {
 		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
@@ -252,6 +253,7 @@ const searchIndexJson = JSON.stringify(searchIndex);
 	h2 a.active {
 		text-decoration: none;
 		color: rgb(var(--text-heading));
+		transition: color var(--duration-normal) var(--ease-out);
 	}
 	nav {
 		display: flex;
@@ -265,7 +267,7 @@ const searchIndexJson = JSON.stringify(searchIndex);
 		color: rgb(var(--text-heading));
 		border-bottom: 4px solid transparent;
 		text-decoration: none;
-		transition: color 0.2s ease, border-color 0.22s ease;
+		transition: color var(--duration-normal) var(--ease-out), border-color var(--duration-normal) var(--ease-out);
 	}
 	.header-actions a {
 		padding: 0;
@@ -305,37 +307,47 @@ const searchIndexJson = JSON.stringify(searchIndex);
 		text-decoration: none;
 		color: inherit;
 		border: 1px solid rgb(var(--border));
-		background: transparent;
+		background-color: transparent;
+		transition: color var(--duration-normal) var(--ease-out), background-color var(--duration-normal) var(--ease-out), border-color var(--duration-normal) var(--ease-out), transform 0.18s var(--ease-out);
 	}
 	.header-actions .search-btn:hover {
 		color: var(--accent);
-		background: rgb(var(--gray-light));
+		background-color: rgb(var(--gray-light));
 	}
 	.header-actions .search-btn:active {
 		transform: scale(0.96);
 	}
 	.icon-btn {
-		background: transparent;
+		background-color: transparent;
 		border: 1px solid rgb(var(--border));
 		cursor: pointer;
 		padding: 0 0.6rem;
 		color: inherit;
-		transition: color 0.2s ease, background 0.2s ease, transform 0.18s ease;
+		transition: color var(--duration-normal) var(--ease-out), background-color var(--duration-normal) var(--ease-out), border-color var(--duration-normal) var(--ease-out), transform 0.18s var(--ease-out);
 	}
 	.icon-btn:hover {
-		background: rgb(var(--gray-light));
+		background-color: rgb(var(--gray-light));
 		transform: scale(1.06);
 	}
 	.icon-btn:active {
 		transform: scale(0.95);
 	}
-	.header-actions .search-btn {
-		transition: color 0.2s ease, background 0.2s ease, transform 0.18s ease;
-	}
 	.header-actions .icon {
 		width: 1.15rem;
 		height: 1.15rem;
 		display: block;
+	}
+	/* 主题按钮固定宽高，避免 ☀/🌙 字符宽度不同导致切换时导航右移 */
+	.theme-toggle {
+		width: var(--header-btn-height);
+		min-width: var(--header-btn-height);
+		padding: 0;
+	}
+	.theme-icon-light,
+	.theme-icon-dark {
+		display: inline;
+		text-align: center;
+		line-height: 1;
 	}
 	.theme-icon-dark {
 		display: none;
