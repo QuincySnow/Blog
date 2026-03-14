@@ -265,6 +265,7 @@ const searchIndexJson = JSON.stringify(searchIndex);
 		color: rgb(var(--text-heading));
 		border-bottom: 4px solid transparent;
 		text-decoration: none;
+		transition: color 0.2s ease, border-color 0.22s ease;
 	}
 	.header-actions a {
 		padding: 0;
@@ -310,15 +311,26 @@ const searchIndexJson = JSON.stringify(searchIndex);
 		color: var(--accent);
 		background: rgb(var(--gray-light));
 	}
+	.header-actions .search-btn:active {
+		transform: scale(0.96);
+	}
 	.icon-btn {
 		background: transparent;
 		border: 1px solid rgb(var(--border));
 		cursor: pointer;
 		padding: 0 0.6rem;
 		color: inherit;
+		transition: color 0.2s ease, background 0.2s ease, transform 0.18s ease;
 	}
 	.icon-btn:hover {
 		background: rgb(var(--gray-light));
+		transform: scale(1.06);
+	}
+	.icon-btn:active {
+		transform: scale(0.95);
+	}
+	.header-actions .search-btn {
+		transition: color 0.2s ease, background 0.2s ease, transform 0.18s ease;
 	}
 	.header-actions .icon {
 		width: 1.15rem;
@@ -345,7 +357,7 @@ const searchIndexJson = JSON.stringify(searchIndex);
 		justify-content: center;
 		visibility: hidden;
 		opacity: 0;
-		transition: visibility 0.2s ease, opacity 0.2s ease;
+		transition: visibility 0.25s ease, opacity 0.25s ease;
 	}
 	.search-overlay.open {
 		visibility: visible;
@@ -357,6 +369,11 @@ const searchIndexJson = JSON.stringify(searchIndex);
 		background: rgba(0, 0, 0, 0.25);
 		backdrop-filter: blur(12px);
 		-webkit-backdrop-filter: blur(12px);
+		opacity: 0;
+		transition: opacity 0.25s ease;
+	}
+	.search-overlay.open .search-overlay-backdrop {
+		opacity: 1;
 	}
 	[data-theme="dark"] .search-overlay-backdrop {
 		background: rgba(0, 0, 0, 0.5);
@@ -376,10 +393,30 @@ const searchIndexJson = JSON.stringify(searchIndex);
 		-webkit-backdrop-filter: blur(20px);
 		border-radius: 16px;
 		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+		transform: scale(0.94);
+		opacity: 0;
+		transition: transform 0.28s var(--ease-out-snap, cubic-bezier(0.34, 1.2, 0.64, 1)), opacity 0.22s ease;
+	}
+	.search-overlay.open .search-overlay-box {
+		transform: scale(1);
+		opacity: 1;
 	}
 	[data-theme="dark"] .search-overlay-box {
 		background: rgba(30, 32, 40, 0.85);
 		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.search-overlay,
+		.search-overlay-backdrop,
+		.search-overlay-box {
+			transition-duration: 0.05s !important;
+		}
+		.search-overlay-box {
+			transform: none;
+		}
+		.search-overlay.open .search-overlay-box {
+			transform: none;
+		}
 	}
 	.search-overlay-form {
 		display: flex;
@@ -425,7 +462,7 @@ const searchIndexJson = JSON.stringify(searchIndex);
 		background: var(--accent-dark);
 	}
 	.search-overlay-submit:active {
-		transform: scale(0.98);
+		transform: scale(0.97);
 	}
 	.search-overlay-results {
 		margin-top: 1rem;

@@ -17,17 +17,17 @@ const fontRegular = withBase('/fonts/atkinson-regular.woff');
 const fontBold = withBase('/fonts/atkinson-bold.woff');
 
 const { title, description, image = FallbackImage } = Astro.props;
+
+const criticalCSS = `:root{--font-src-regular:url("${fontRegular}");--font-src-bold:url("${fontBold}");}:root{--bg:255, 255, 255;--text:34, 41, 57;--text-heading:15, 18, 25;--border:229, 233, 240}[data-theme="dark"]{--bg:22, 24, 29;--text:200, 204, 214;--text-heading:230, 232, 238;--border:55, 60, 72}body{display:flex;flex-direction:column;min-height:100vh;font-family:"Atkinson",sans-serif;margin:0;padding:0;background-color:rgb(var(--bg));color:rgb(var(--text))}main{flex:1 0 auto;width:720px;max-width:calc(100% - 3rem);margin:0 auto;padding:2rem 1.5rem 1.5rem}`;
 ---
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />
-<style is:inline>
-	:root {
-		--font-src-regular: url("{fontRegular}");
-		--font-src-bold: url("{fontBold}");
-	}
-</style>
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+<!-- Font preloads first for earlier discovery -->
+<link rel="preload" href={withBase('/fonts/atkinson-regular.woff')} as="font" type="font/woff" crossorigin />
+<link rel="preload" href={withBase('/fonts/atkinson-bold.woff')} as="font" type="font/woff" crossorigin />
+<style is:inline set:html={criticalCSS} />
 <script is:inline>
 	(function () {
 		var t = localStorage.getItem('theme');
@@ -47,10 +47,6 @@ const { title, description, image = FallbackImage } = Astro.props;
 	href={new URL(withBase('/rss.xml'), Astro.site)}
 />
 <meta name="generator" content={Astro.generator} />
-
-<!-- Font preloads -->
-<link rel="preload" href={withBase('/fonts/atkinson-regular.woff')} as="font" type="font/woff" crossorigin />
-<link rel="preload" href={withBase('/fonts/atkinson-bold.woff')} as="font" type="font/woff" crossorigin />
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />

@@ -43,6 +43,8 @@ export const i18n = {
 			description: 'Browse posts by tag',
 			documentTitle: 'Tags - QuincySnow',
 			moreResults: 'more…',
+			back: '← All tags',
+			postCountSuffix: 'post(s)',
 		},
 		about: {
 			title: 'About',
@@ -108,6 +110,8 @@ export const i18n = {
 			description: '按标签浏览文章',
 			documentTitle: '标签 - QuincySnow',
 			moreResults: '篇更多…',
+			back: '← 全部标签',
+			postCountSuffix: '篇文章',
 		},
 		about: {
 			title: '关于',

@@ -42,7 +42,9 @@ description: Conventions and structure for this Astro blog (QuincySnow). Use whe
 - 博客列表：`site/src/pages/blog/index.astro` → `/blog`
 - 文章详情：`site/src/pages/blog/[...slug].astro` → `/blog/:slug`
 - 关于：`site/src/pages/about.astro` → `/about`
-- 标签：`site/src/pages/tags.astro` → `/tags`
+- 标签列表：`site/src/pages/tags.astro` → `/tags`
+- 标签详情（某标签下的文章列表）：`site/src/pages/tags/[tag].astro` → `/tags/:tag`，链接用 `withBase('/tags/' + encodeURIComponent(tagName))`。
+- 文章内与标签页的标签均指向 **`/tags/[tag]`**，不再使用 `?search=` 搜索。
 - 搜索为 Header 内弹窗，无独立 `/search` 页面。
 - 新增页面时，在导航或其它入口用 **`withBase('/your-route')`** 链接过去。
 

@@ -60,11 +60,15 @@ const searchIndex = allPosts
 				background: rgb(var(--gray-light));
 				border-radius: 6px;
 				font-size: 0.95rem;
-				transition: color 0.2s ease, background 0.2s ease;
+				transition: color 0.2s ease, background 0.2s ease, transform 0.2s ease;
 			}
 			.tags-list a:hover {
 				color: var(--accent);
 				background: rgba(35, 55, 255, 0.1);
+				transform: scale(1.05);
+			}
+			.tags-list a:active {
+				transform: scale(0.98);
 			}
 			[data-theme="dark"] .tags-list a {
 				background: rgba(255, 255, 255, 0.08);
@@ -86,7 +90,7 @@ const searchIndex = allPosts
 			<ul class="tags-list animate-stagger-children">
 				{tags.map(({ name, count }) => (
 					<li>
-						<a href={`${withBase('/')}?search=${encodeURIComponent(name)}`} class="transition-colors duration-200">
+						<a href={withBase('/tags/' + encodeURIComponent(name))} class="transition-colors duration-200">
 							{name}<span class="tag-count">({count})</span>
 						</a>
 					</li>

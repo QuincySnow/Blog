@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { getImage, Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
@@ -21,12 +21,18 @@ const searchIndex = posts.map((p) => ({
 	pubDate: p.data.pubDate.toISOString(),
 	lang: p.data.lang ?? 'zh',
 }));
+
+const firstHero = posts[0]?.data?.heroImage;
+const firstImageSrc = firstHero ? getImage({ src: firstHero, width: 720, height: 360 }).src : null;
 ---
 
 <!doctype html>
 <html lang="zh-CN">
 	<head>
 		<BaseHead title={meta.documentTitle} description={meta.description} />
+		{firstImageSrc && (
+			<link rel="preload" as="image" href={withBase(firstImageSrc)} />
+		)}
 		<style>
 			.blog-list {
 				list-style: none;
@@ -97,13 +103,21 @@ const searchIndex = posts.map((p) => ({
 			<section aria-label="Article list">
 				<ul class="blog-list animate-stagger-children">
 					{
-						posts.map((post) => {
+						posts.map((post, index) => {
 							const postLang = post.data.lang ?? 'zh';
+							const isFirstImage = index === 0 && post.data.heroImage;
 							return (
 							<li class:list={['post-lang-' + postLang]} data-post-lang={postLang}>
 								<a href={withBase(`/blog/${post.id}/`)} class="hover-lift">
 									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
+										<Image
+											width={720}
+											height={360}
+											src={post.data.heroImage}
+											alt=""
+											loading={isFirstImage ? 'eager' : 'lazy'}
+											fetchPriority={isFirstImage ? 'high' : undefined}
+										/>
 									)}
 									<h2 class="title">{post.data.title}</h2>
 									<p class="date">

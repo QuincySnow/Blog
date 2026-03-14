@@ -46,8 +46,18 @@ All commands are run from the root of the project, from a terminal:
 | `bun dev`             | Starts local dev server at `localhost:4321`      |
 | `bun build`           | Build your production site to `./dist/`          |
 | `bun preview`         | Preview your build locally, before deploying     |
+| `bun lighthouse`      | 本地 Lighthouse 测评（需先 `bun run preview`，且本机已安装 Chrome/Chromium） |
 | `bun astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `bun astro -- --help` | Get help using the Astro CLI                     |
+
+## 📊 本地 Lighthouse 测评
+
+1. 构建并启动预览：`bun run build && bun run preview`（预览默认在 `http://localhost:4321`）。
+2. 另开终端执行：`bun run lighthouse`。会检测 `http://localhost:4321/blog` 并生成 `lighthouse-report.html`，完成后自动在浏览器打开。
+
+**注意**：Lighthouse 依赖本机已安装的 **Chrome 或 Chromium**。若在 WSL 下报 “No Chrome installations found”：
+- 在 WSL 内安装 Chromium：`sudo apt install chromium-browser`，或
+- 在 Windows 上打开 Chrome，访问 [Chrome 的 Lighthouse](https://developer.chrome.com/docs/lighthouse/)（DevTools → Lighthouse），对 `http://localhost:4321/blog` 测评（需确保 WSL 的 4321 端口已转发到 Windows）。
 
 ## 👀 Want to learn more?
 

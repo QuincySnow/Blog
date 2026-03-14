@@ -9,7 +9,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "lighthouse": "bunx lighthouse http://localhost:4321/blog --output=html --output-path=./lighthouse-report.html --view"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.0",
