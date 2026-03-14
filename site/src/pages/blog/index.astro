@@ -29,10 +29,11 @@ const firstImageSrc = firstHero ? getImage({ src: firstHero, width: 720, height:
 <!doctype html>
 <html lang="zh-CN">
 	<head>
-		<BaseHead title={meta.documentTitle} description={meta.description} />
-		{firstImageSrc && (
-			<link rel="preload" as="image" href={withBase(firstImageSrc)} />
-		)}
+		<BaseHead
+			title={meta.documentTitle}
+			description={meta.description}
+			preloadImage={firstImageSrc ? withBase(firstImageSrc) : undefined}
+		/>
 		<style>
 			.blog-list {
 				list-style: none;
@@ -119,6 +120,7 @@ const firstImageSrc = firstHero ? getImage({ src: firstHero, width: 720, height:
 											alt=""
 											loading={isFirstImage ? 'eager' : 'lazy'}
 											fetchPriority={isFirstImage ? 'high' : undefined}
+											decoding={isFirstImage ? 'async' : undefined}
 										/>
 									)}
 									<h2 class="title">{post.data.title}</h2>
