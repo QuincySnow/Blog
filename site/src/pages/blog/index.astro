@@ -1,0 +1,111 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+
+const allPosts = await getCollection('blog');
+const posts = allPosts
+	.filter((p) => !p.data.draft)
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			.blog-list {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				display: flex;
+				flex-direction: column;
+				gap: 2.5rem;
+			}
+			.blog-list li {
+				margin: 0;
+				padding: 0;
+			}
+			.blog-list a {
+				display: block;
+				text-decoration: none;
+				padding: 1.5rem 0;
+				border-bottom: 1px solid rgb(var(--border));
+				transition: color 0.2s ease;
+			}
+			.blog-list a:hover .title,
+			.blog-list a:hover .date,
+			.blog-list a:hover .tags {
+				color: var(--accent);
+			}
+			.blog-list .title {
+				margin: 0 0 0.5rem;
+				font-size: 1.35rem;
+				line-height: 1.4;
+				color: rgb(var(--text-heading));
+			}
+			.blog-list .date {
+				margin: 0;
+				font-size: 0.9rem;
+				color: rgb(var(--text));
+				opacity: 0.85;
+			}
+			.blog-list .tags {
+				margin: 0.5rem 0 0;
+				font-size: 0.85rem;
+				color: rgb(var(--text));
+				opacity: 0.75;
+			}
+			.blog-list .tag {
+				display: inline-block;
+				margin-right: 0.5rem;
+			}
+			.blog-list img {
+				margin-bottom: 0.75rem;
+				border-radius: 12px;
+			}
+			.blog-page-title {
+				margin: 0 0 1.5rem;
+				font-size: 1.5rem;
+				color: rgb(var(--text-heading));
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1 class="blog-page-title" data-i18n="nav.blog">博客</h1>
+			<section aria-label="Article list">
+				<ul class="blog-list">
+					{
+						posts.map((post) => (
+							<li>
+								<a href={`/blog/${post.id}/`}>
+									{post.data.heroImage && (
+										<Image width={720} height={360} src={post.data.heroImage} alt="" />
+									)}
+									<h2 class="title">{post.data.title}</h2>
+									<p class="date">
+										<FormattedDate date={post.data.pubDate} />
+									</p>
+									{post.data.tags && post.data.tags.length > 0 && (
+										<p class="tags">
+											{post.data.tags.slice(0, 5).map((t) => (
+												<span class="tag">{t}</span>
+											))}
+										</p>
+									)}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>

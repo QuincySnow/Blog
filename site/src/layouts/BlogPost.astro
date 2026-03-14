@@ -1,0 +1,442 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+import { i18n } from '../i18n';
+
+type Props = CollectionEntry<'blog'>['data'] & {
+	dataI18nTitle?: string;
+};
+
+const { title, description, pubDate, updatedDate, heroImage, tags, dataI18nTitle } = Astro.props;
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={title} description={description} />
+		<style is:global>
+			main {
+				width: 100%;
+				max-width: 100%;
+				margin: 0;
+				padding: 0;
+			}
+			.hero-image {
+				width: 100%;
+			}
+			.hero-image img {
+				display: block;
+				margin: 0 auto;
+				border-radius: 12px;
+				box-shadow: var(--box-shadow);
+			}
+			.post-body {
+				display: flex;
+				gap: 2.25rem;
+				align-items: flex-start;
+				width: 100%;
+				margin: 0;
+				padding: 0 2rem 4rem;
+				box-sizing: border-box;
+			}
+			.post-content {
+				flex: 0 1 980px;
+				max-width: 980px;
+				min-width: 0;
+			}
+			.prose {
+				width: 100%;
+				max-width: 100%;
+				margin: 0;
+				padding: 2rem 0 4rem;
+				color: rgb(var(--text));
+				line-height: 1.75;
+			}
+			.toc-sidebar {
+				width: 300px;
+				flex: 0 0 300px;
+				margin-left: auto;
+				position: sticky;
+				top: 1.5rem;
+				padding: 1rem 0 0 1rem;
+				border-left: 1px solid rgb(var(--border));
+			}
+			@media (max-width: 1280px) {
+				.post-body {
+					max-width: 1200px;
+					margin: 0 auto;
+					padding: 0 1.5rem 4rem;
+				}
+				.post-content {
+					flex: 1 1 0;
+					max-width: 100%;
+				}
+				.toc-sidebar {
+					width: min(280px, 24%);
+					flex: 0 0 min(280px, 24%);
+					margin-left: 0;
+				}
+			}
+			.toc-title {
+				font-size: 0.9rem;
+				font-weight: 700;
+				color: rgb(var(--text-heading));
+				margin: 0 0 0.75rem;
+			}
+			.toc-nav {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				font-size: 0.85rem;
+				line-height: 1.5;
+			}
+			.toc-nav a {
+				display: block;
+				padding: 0.25rem 0;
+				color: rgb(var(--text));
+				text-decoration: none;
+				opacity: 0.85;
+			}
+			.toc-nav a:hover {
+				color: var(--accent);
+				opacity: 1;
+			}
+			.toc-sidebar .toc-nav a.active {
+				background: rgba(33, 55, 255, 0.12);
+				color: var(--accent);
+				opacity: 1;
+				border-radius: 6px;
+				margin: 0 -0.25rem;
+				padding: 0.35rem 0.25rem;
+			}
+			[data-theme="dark"] .toc-sidebar .toc-nav a.active {
+				background: rgba(33, 55, 255, 0.25);
+			}
+			.toc-nav .toc-h3 {
+				padding-left: 0.75rem;
+			}
+			.toc-nav .toc-h4 {
+				padding-left: 1.25rem;
+			}
+			@media (max-width: 900px) {
+				.toc-sidebar {
+					display: none;
+				}
+			}
+			.title {
+				margin-bottom: 1em;
+				padding: 1em 0;
+				text-align: center;
+				line-height: 1;
+			}
+			.title h1 {
+				margin: 0 0 0.5em 0;
+			}
+			/* 正文中与布局标题重复的第一个 h1 仅做视觉隐藏，保留语义由布局提供唯一 h1 */
+			.prose-content > h1:first-child {
+				display: none;
+			}
+			.date {
+				margin-bottom: 0.5em;
+				color: rgb(var(--gray));
+			}
+			.last-updated-on {
+				font-style: italic;
+			}
+			.tags {
+				margin-top: 0.5em;
+				font-size: 0.9rem;
+				color: rgb(var(--gray));
+			}
+			.tag {
+				display: inline-block;
+				margin-right: 0.5rem;
+			}
+			.prose .code-block-outer {
+				margin: 1em 0;
+				border-radius: 8px;
+				overflow: hidden;
+				border: 1px solid rgb(var(--border));
+				background: rgb(var(--bg));
+			}
+			[data-theme="dark"] .prose .code-block-outer {
+				background: transparent;
+				border-color: rgb(var(--border));
+			}
+			.prose .code-block-header {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 0.4rem 0.75rem;
+				background: rgb(var(--gray-light));
+				border-bottom: 1px solid rgb(var(--border));
+				gap: 0.5rem;
+			}
+			[data-theme="dark"] .prose .code-block-header {
+				background: rgba(255, 255, 255, 0.06);
+				border-bottom-color: rgb(var(--border));
+			}
+			.prose .code-block-lang {
+				font-size: 0.75rem;
+				font-weight: 700;
+				text-transform: uppercase;
+				letter-spacing: 0.02em;
+				color: rgb(var(--text));
+				opacity: 0.85;
+			}
+			.prose .code-block-outer pre {
+				margin: 0;
+				padding: 1rem 1.25rem;
+				border-radius: 0;
+				overflow-x: auto;
+			}
+			.prose .code-copy-btn {
+				width: 2rem;
+				height: 2rem;
+				min-width: 2rem;
+				min-height: 2rem;
+				padding: 0;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				color: rgb(var(--text));
+				background: transparent;
+				border: 1px solid rgb(var(--border));
+				border-radius: 6px;
+				cursor: pointer;
+				transition: background 0.2s, color 0.2s, border-color 0.2s;
+			}
+			.prose .code-copy-btn:hover {
+				background: rgba(var(--text-heading), 0.08);
+				color: var(--accent);
+			}
+			[data-theme="dark"] .prose .code-copy-btn {
+				color: rgb(var(--text));
+				border-color: rgba(255, 255, 255, 0.2);
+			}
+			[data-theme="dark"] .prose .code-copy-btn:hover {
+				background: rgba(255, 255, 255, 0.1);
+			}
+			.prose .code-copy-btn.copied {
+				background: var(--accent);
+				color: #fff;
+				border-color: var(--accent);
+			}
+			.prose .code-copy-btn svg {
+				width: 1rem;
+				height: 1rem;
+				display: block;
+				flex-shrink: 0;
+				stroke: currentColor;
+				fill: none;
+			}
+			.prose .code-copy-btn .copy-char {
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<Header />
+		<main>
+			<article>
+				<div class="hero-image">
+					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
+				</div>
+				<div class="post-body">
+					<div class="post-content">
+						<div class="prose">
+							<div class="title">
+								<div class="date">
+									<FormattedDate date={pubDate} />
+									{
+										updatedDate && (
+											<div class="last-updated-on">
+												<span data-i18n="post.lastUpdated">更新于</span> <FormattedDate date={updatedDate} />
+											</div>
+										)
+									}
+								</div>
+								<h1 data-i18n={dataI18nTitle}>{title}</h1>
+								{tags && tags.length > 0 && (
+									<div class="tags">
+										{tags.map((t) => (
+											<span class="tag">{t}</span>
+										))}
+									</div>
+								)}
+								<hr />
+							</div>
+							<div class="prose-content">
+								<slot />
+							</div>
+						</div>
+					</div>
+					<aside class="toc-sidebar" aria-label="Table of contents">
+						<h2 class="toc-title" data-i18n="post.tocTitle">文章目录</h2>
+						<nav class="toc-nav" id="toc-nav"></nav>
+					</aside>
+				</div>
+			</article>
+		</main>
+		<Footer />
+		<script define:vars={{ i18n }}>
+			(function () {
+				function getLang() {
+					var s = localStorage.getItem('lang');
+					return (s === 'en' || s === 'zh') ? s : 'zh';
+				}
+				function makeSvgCopy() {
+					var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+					svg.setAttribute('viewBox', '0 0 24 24');
+					svg.setAttribute('fill', 'none');
+					svg.setAttribute('stroke', 'currentColor');
+					svg.setAttribute('stroke-width', '2');
+					svg.setAttribute('stroke-linecap', 'round');
+					svg.setAttribute('stroke-linejoin', 'round');
+					var r = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+					r.setAttribute('x', '9'); r.setAttribute('y', '9'); r.setAttribute('width', '13'); r.setAttribute('height', '13'); r.setAttribute('rx', '2');
+					var p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+					p.setAttribute('d', 'M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1');
+					p.setAttribute('stroke', 'currentColor');
+					svg.appendChild(r); svg.appendChild(p);
+					return svg;
+				}
+				function makeSvgCheck() {
+					var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+					svg.setAttribute('viewBox', '0 0 24 24');
+					svg.setAttribute('fill', 'none');
+					svg.setAttribute('stroke', 'currentColor');
+					svg.setAttribute('stroke-width', '2');
+					svg.setAttribute('stroke-linecap', 'round');
+					svg.setAttribute('stroke-linejoin', 'round');
+					var pl = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+					pl.setAttribute('points', '20 6 9 17 4 12');
+					svg.appendChild(pl);
+					return svg;
+				}
+				function getLanguageLabel(codeEl) {
+					if (!codeEl || !codeEl.className) return 'PLAINTEXT';
+					var match = codeEl.className.match(/\blanguage-(\w+)\b/);
+					return match ? match[1].toUpperCase() : 'PLAINTEXT';
+				}
+				function run() {
+					var lang = getLang();
+					var copyText = i18n[lang].code.copy;
+					document.querySelectorAll('.prose pre').forEach(function (pre) {
+						if (pre.closest('.code-block-outer')) return;
+						var code = pre.querySelector('code');
+						var text = code ? code.textContent : pre.textContent;
+						var wrapper = document.createElement('div');
+						wrapper.className = 'code-block-outer';
+						pre.parentNode.insertBefore(wrapper, pre);
+						var header = document.createElement('div');
+						header.className = 'code-block-header';
+						var langSpan = document.createElement('span');
+						langSpan.className = 'code-block-lang';
+						langSpan.textContent = getLanguageLabel(code);
+						var btn = document.createElement('button');
+						btn.type = 'button';
+						btn.className = 'code-copy-btn';
+						btn.setAttribute('aria-label', copyText);
+						var span = document.createElement('span');
+						span.className = 'copy-char';
+						span.setAttribute('aria-hidden', 'true');
+						span.textContent = '\u2398';
+						btn.appendChild(span);
+						btn.appendChild(makeSvgCopy());
+						btn.addEventListener('click', function () {
+							if (!text) return;
+							navigator.clipboard.writeText(text).then(function () {
+								btn.replaceChildren(makeSvgCheck());
+								btn.classList.add('copied');
+								setTimeout(function () {
+									btn.replaceChildren(span.cloneNode(true), makeSvgCopy());
+									btn.classList.remove('copied');
+								}, 1500);
+							});
+						});
+						header.appendChild(langSpan);
+						header.appendChild(btn);
+						wrapper.appendChild(header);
+						wrapper.appendChild(pre);
+					});
+				}
+				function slugify(text) {
+					return text.trim().toLowerCase()
+						.replace(/\s+/g, '-')
+						.replace(/[^\w\u4e00-\u9fff-]/g, '')
+						.replace(/-+/g, '-')
+						.replace(/^-|-$/g, '') || 'section';
+				}
+				function buildToc() {
+					var nav = document.getElementById('toc-nav');
+					if (!nav) return;
+					var content = document.querySelector('.prose-content');
+					if (!content) return;
+					var headings = content.querySelectorAll('h2, h3, h4');
+					if (headings.length === 0) return;
+					var fragment = document.createDocumentFragment();
+					var idToLink = {};
+					var usedIds = {};
+					headings.forEach(function (h) {
+						var baseId = h.id || slugify(h.textContent);
+						var id = baseId;
+						var n = 0;
+						while (usedIds[id]) { n++; id = baseId + '-' + n; }
+						usedIds[id] = true;
+						h.id = id;
+						var li = document.createElement('li');
+						li.className = 'toc-' + h.tagName.toLowerCase();
+						var a = document.createElement('a');
+						a.href = '#' + id;
+						a.textContent = h.textContent.trim();
+						a.setAttribute('data-toc-id', id);
+						li.appendChild(a);
+						fragment.appendChild(li);
+						idToLink[id] = a;
+					});
+					nav.appendChild(fragment);
+					function setActive(id) {
+						Object.keys(idToLink).forEach(function (k) {
+							var link = idToLink[k];
+							if (k === id) {
+								link.classList.add('active');
+								link.setAttribute('aria-current', 'location');
+							} else {
+								link.classList.remove('active');
+								link.removeAttribute('aria-current');
+							}
+						});
+					}
+					function updateActiveFromScroll() {
+						var topOffset = 100;
+						var current = null;
+						for (var i = 0; i < headings.length; i++) {
+							var h = headings[i];
+							if (h.getBoundingClientRect().top <= topOffset) current = h.id;
+						}
+						if (current && idToLink[current]) setActive(current);
+						else if (headings[0] && idToLink[headings[0].id]) setActive(headings[0].id);
+					}
+					window.addEventListener('scroll', updateActiveFromScroll, { passive: true });
+					requestAnimationFrame(function () {
+						requestAnimationFrame(updateActiveFromScroll);
+					});
+				}
+				function runAll() {
+					run();
+					buildToc();
+				}
+				if (document.readyState === 'loading') {
+					document.addEventListener('DOMContentLoaded', runAll);
+				} else {
+					runAll();
+				}
+			})();
+		</script>
+	</body>
+</html>

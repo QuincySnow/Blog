@@ -1,0 +1,109 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+const allPosts = (await getCollection('blog'))
+	.filter((p) => !p.data.draft)
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const recentPosts = allPosts.slice(0, 8);
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			.home-intro {
+				margin-bottom: 3rem;
+				padding-bottom: 2rem;
+				border-bottom: 1px solid rgb(var(--border));
+			}
+			.home-intro h1 {
+				margin: 0 0 0.75rem;
+				font-size: 1.75rem;
+			}
+			.home-intro p {
+				margin: 0;
+				color: rgb(var(--text));
+				line-height: 1.7;
+			}
+			.recent-title {
+				margin: 0 0 1.5rem;
+				font-size: 1.25rem;
+				color: rgb(var(--text-heading));
+			}
+			.home-posts {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+			.home-posts li {
+				margin: 0;
+				padding: 0;
+			}
+			.home-posts a {
+				display: block;
+				text-decoration: none;
+				padding: 1rem 0;
+				border-bottom: 1px solid rgb(var(--border));
+				transition: color 0.2s ease;
+			}
+			.home-posts a:hover .post-title,
+			.home-posts a:hover .post-date {
+				color: var(--accent);
+			}
+			.home-posts .post-title {
+				margin: 0 0 0.25rem;
+				font-size: 1.1rem;
+				line-height: 1.4;
+				color: rgb(var(--text-heading));
+			}
+			.home-posts .post-date {
+				margin: 0;
+				font-size: 0.85rem;
+				color: rgb(var(--text));
+				opacity: 0.8;
+			}
+			.more-link {
+				display: inline-block;
+				margin-top: 1.5rem;
+				text-decoration: none;
+				color: var(--accent);
+				font-weight: 500;
+			}
+			.more-link:hover {
+				text-decoration: underline;
+			}
+		</style>
+	</head>
+	<body class="home">
+		<Header />
+		<main>
+			<section class="home-intro">
+				<h1>QuincySnow</h1>
+				<p data-i18n="home.intro">技术笔记与代码分享。</p>
+			</section>
+			<h2 class="recent-title" data-i18n="home.recentTitle">最近文章</h2>
+			<ul class="home-posts">
+				{
+					recentPosts.map((post) => (
+						<li>
+							<a href={`/blog/${post.id}/`}>
+								<span class="post-title">{post.data.title}</span>
+								<span class="post-date">
+									<FormattedDate date={post.data.pubDate} />
+								</span>
+							</a>
+						</li>
+					))
+				}
+			</ul>
+			<a href="/blog/" class="more-link" data-i18n="home.morePosts">全部文章 →</a>
+		</main>
+		<Footer />
+	</body>
+</html>

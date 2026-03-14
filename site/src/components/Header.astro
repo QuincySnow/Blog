@@ -1,0 +1,199 @@
+---
+import { SITE_TITLE } from '../consts';
+import HeaderLink from './HeaderLink.astro';
+import { i18n } from '../i18n';
+---
+
+<header>
+	<nav>
+		<h2><a href="/">{SITE_TITLE}</a></h2>
+		<div class="internal-links">
+			<HeaderLink href="/" data-i18n="nav.home">Home</HeaderLink>
+			<HeaderLink href="/blog" data-i18n="nav.blog">Blog</HeaderLink>
+			<HeaderLink href="/about" data-i18n="nav.about">About</HeaderLink>
+		</div>
+		<div class="header-actions">
+			<a href="/search" class="icon-btn search-btn" aria-label="Search" title="Search">
+				<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+			</a>
+			<button type="button" class="icon-btn theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+				<span class="theme-icon-light" aria-hidden="true">☀</span>
+				<span class="theme-icon-dark" aria-hidden="true">🌙</span>
+			</button>
+			<button type="button" class="icon-btn lang-toggle" aria-label="中文" title="中文" data-lang="zh">
+				<svg class="icon lang-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+			</button>
+		</div>
+	</nav>
+</header>
+	<script define:vars={{ i18n }}>
+		function getTheme() {
+			return document.documentElement.getAttribute('data-theme') || 'light';
+		}
+		function setTheme(theme) {
+			document.documentElement.setAttribute('data-theme', theme);
+			localStorage.setItem('theme', theme);
+			document.querySelectorAll('.theme-icon-light').forEach(function (el) {
+				el.style.display = theme === 'light' ? 'inline' : 'none';
+			});
+			document.querySelectorAll('.theme-icon-dark').forEach(function (el) {
+				el.style.display = theme === 'dark' ? 'inline' : 'none';
+			});
+		}
+		function getLang() {
+			var s = localStorage.getItem('lang');
+			return (s === 'en' || s === 'zh') ? s : 'zh';
+		}
+		function setLang(lang) {
+			localStorage.setItem('lang', lang);
+			document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+			var langBtn = document.querySelector('.lang-toggle');
+			if (langBtn) {
+				langBtn.setAttribute('data-lang', lang);
+				langBtn.setAttribute('aria-label', lang === 'zh' ? i18n.zh.lang.zh : i18n.en.lang.en);
+				langBtn.setAttribute('title', lang === 'zh' ? i18n.zh.lang.zh : i18n.en.lang.en);
+			}
+			var searchBtn = document.querySelector('.search-btn');
+			if (searchBtn) {
+				searchBtn.setAttribute('aria-label', i18n[lang].nav.search);
+				searchBtn.setAttribute('title', i18n[lang].nav.search);
+			}
+			var themeBtn = document.querySelector('.theme-toggle');
+			if (themeBtn) {
+				themeBtn.setAttribute('aria-label', i18n[lang].theme.aria);
+				themeBtn.setAttribute('title', i18n[lang].theme.aria);
+			}
+			document.querySelectorAll('[data-i18n]').forEach(function (el) {
+				var key = el.getAttribute('data-i18n');
+				var parts = key.split('.');
+				var obj = i18n[lang];
+				for (var i = 0; i < parts.length && obj; i++) obj = obj[parts[i]];
+				if (obj != null) el.textContent = obj;
+			});
+			document.querySelectorAll('[data-i18n-placeholder]').forEach(function (el) {
+				var key = el.getAttribute('data-i18n-placeholder');
+				var parts = key.split('.');
+				var obj = i18n[lang];
+				for (var i = 0; i < parts.length && obj; i++) obj = obj[parts[i]];
+				if (obj != null) el.placeholder = obj;
+			});
+			var path = (window.location.pathname || '/').replace(/\/$/, '') || '/';
+			if (path === '/search') document.title = i18n[lang].search.documentTitle;
+			else if (path === '/about') document.title = i18n[lang].about.documentTitle;
+			else document.title = i18n[lang].site.title;
+		}
+		document.addEventListener('DOMContentLoaded', function () {
+			setTheme(getTheme());
+			setLang(getLang());
+			document.querySelector('.theme-toggle').addEventListener('click', function () {
+				setTheme(getTheme() === 'dark' ? 'light' : 'dark');
+			});
+			var langToggle = document.querySelector('.lang-toggle');
+			if (langToggle) {
+				langToggle.addEventListener('click', function () {
+					setLang(getLang() === 'zh' ? 'en' : 'zh');
+				});
+			}
+		});
+	</script>
+<style>
+	header {
+		margin: 0;
+		padding: 0 1em;
+		background: rgb(var(--bg-header));
+		box-shadow: 0 2px 8px rgba(var(--text-heading), 0.08);
+	}
+	[data-theme="dark"] header {
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+	}
+	h2 {
+		margin: 0;
+		font-size: 1em;
+	}
+	h2 a,
+	h2 a.active {
+		text-decoration: none;
+		color: rgb(var(--text-heading));
+	}
+	nav {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: 0.5em;
+	}
+	nav a {
+		padding: 1em 0.5em;
+		color: rgb(var(--text-heading));
+		border-bottom: 4px solid transparent;
+		text-decoration: none;
+	}
+	.header-actions a {
+		padding: 0;
+		border-bottom: none;
+	}
+	nav a:hover {
+		color: var(--accent);
+	}
+	nav a.active {
+		text-decoration: none;
+		border-bottom-color: var(--accent);
+	}
+	.header-actions {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+	/* 统一右上角按钮/链接：同一高度 36px、垂直居中，且不受 nav a 的 padding 影响 */
+	.header-actions {
+		--header-btn-height: 36px;
+	}
+	.header-actions .icon-btn,
+	.header-actions .search-btn,
+	.header-actions .lang-toggle {
+		box-sizing: border-box;
+		height: var(--header-btn-height);
+		min-height: var(--header-btn-height);
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 0.9rem;
+		line-height: 1;
+		border-radius: 6px;
+	}
+	.header-actions .search-btn {
+		padding: 0 0.6rem;
+		text-decoration: none;
+		color: inherit;
+		border: 1px solid rgb(var(--border));
+		background: transparent;
+	}
+	.header-actions .search-btn:hover {
+		color: var(--accent);
+		background: rgb(var(--gray-light));
+	}
+	.icon-btn {
+		background: transparent;
+		border: 1px solid rgb(var(--border));
+		cursor: pointer;
+		padding: 0 0.6rem;
+		color: inherit;
+	}
+	.icon-btn:hover {
+		background: rgb(var(--gray-light));
+	}
+	.header-actions .icon {
+		width: 1.15rem;
+		height: 1.15rem;
+		display: block;
+	}
+	.theme-icon-dark {
+		display: none;
+	}
+	[data-theme="dark"] .theme-icon-light {
+		display: none;
+	}
+	[data-theme="dark"] .theme-icon-dark {
+		display: inline;
+	}
+</style>

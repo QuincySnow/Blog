@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/BlogPost.astro';
+---
+
+<Layout
+	title="关于"
+	description="关于我"
+	pubDate={new Date()}
+	dataI18nTitle="about.title"
+>
+	<p class="about-placeholder">— · —</p>
+	<!-- 待补充：在此处填写关于页内容 -->
+</Layout>
+<style>
+	.about-placeholder {
+		color: rgb(var(--gray));
+		text-align: center;
+		margin-top: 2rem;
+	}
+</style>
