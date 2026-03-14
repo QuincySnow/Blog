@@ -7,6 +7,6 @@ import { defineConfig } from 'astro/config';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https:/quincysnow.github.io',
-	base: '/site/',
+	base: '/Blog',
 	integrations: [mdx(), sitemap()],
 });
