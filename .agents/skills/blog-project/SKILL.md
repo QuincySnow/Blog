@@ -48,7 +48,7 @@ description: Conventions and structure for this Astro blog (QuincySnow). Use whe
 - 首页：`site/src/pages/index.astro` → `/`（实际访问为 `/blog/`）
 - 博客列表：`site/src/pages/blog/index.astro` → `/blog`
 - 文章详情：`site/src/pages/blog/[...slug].astro` → `/blog/:slug`
-- 关于：`site/src/pages/about.astro` → `/about`
+- 关于：`site/src/pages/about.astro` → `/about`（含开源作品集，详见下方「关于页与开源作品集」）。
 - 标签列表：`site/src/pages/tags.astro` → `/tags`
 - 标签详情（某标签下的文章列表）：`site/src/pages/tags/[tag].astro` → `/tags/:tag`，链接用 `withBase('/tags/' + encodeURIComponent(tagName))`。
 - 文章内与标签页的标签均指向 **`/tags/[tag]`**，不再使用 `?search=` 搜索。
@@ -95,6 +95,13 @@ description: Conventions and structure for this Astro blog (QuincySnow). Use whe
 - 全局样式：**`site/src/styles/global.css`**；组件内使用 `<style>` 或 `is:global` 按需。
 - 正文与 TOC 比例：正文区约 75–80%，右侧目录约 20–25%；大屏下正文 max-width 980px，目录 300px。
 
+## 关于页与开源作品集
+
+- **关于页**：`site/src/pages/about.astro`。当前内容为「我的开源作品集」：项目列表在 frontmatter 的 **`projects`** 数组（每项含 `slug`、`github`、`demoUrl`、`demoLabelKey`、`nameKey`、`descKey`、`techKey`）。
+- **文案**：中英文均在 **`site/src/i18n.ts`** 的 `about` 下（如 `portfolioTitle`、`portfolioIntro`、`linkGitHub`、`linkDemo`、`devSetupName`、`focusFlowName` 等）。新增项目时在 `projects` 增加一项并在 i18n 的 `about` 中增加对应 `*Name` / `*Desc` / `*Tech`（中英各一份）。
+- **模板注意**：模板中不要写 `as Record<string, string>`（Astro 会把 `>` 当标签结束），在 frontmatter 里用 `metaZhMap` / `metaEnMap` 做键值访问。
+- **GitHub**：本站作者 GitHub 用户名为 **QuincySnow**，作品集外链使用 `https://github.com/QuincySnow/<repo>`。
+
 ## 检查清单（改链接或加页面时）
 
 - [ ] 新链接使用 `withBase('/...')`，未写死根路径 `/xxx`
@@ -102,4 +109,5 @@ description: Conventions and structure for this Astro blog (QuincySnow). Use whe
 - [ ] 新 head 资源（favicon、字体等）使用 withBase
 - [ ] 新图片/动图放入 `site/public/images/` 或 `site/public/gif/`，引用时用 `withBase('/images/...')` 或 `withBase('/gif/...')`
 - [ ] 新文章：中文稿加 `lang: zh`；英文稿用 `-en.md` 且加 `lang: en`；正文内跨语言引用用相对 slug
+- [ ] 关于页新增项目：在 `projects` 与 i18n `about` 中补全，避免在模板中使用 `Record<string, string>` 类型断言
 - [ ] 构建通过：`cd site && bun run build`
