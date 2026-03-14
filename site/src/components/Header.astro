@@ -1,19 +1,19 @@
 ---
-import { SITE_TITLE } from '../consts';
+import { BASE_PATH, SITE_TITLE, withBase } from '../consts';
 import HeaderLink from './HeaderLink.astro';
 import { i18n } from '../i18n';
 ---
 
 <header>
 	<nav>
-		<h2><a href="/">{SITE_TITLE}</a></h2>
+		<h2><a href={withBase('/')}>{SITE_TITLE}</a></h2>
 		<div class="internal-links">
 			<HeaderLink href="/" data-i18n="nav.home">Home</HeaderLink>
 			<HeaderLink href="/blog" data-i18n="nav.blog">Blog</HeaderLink>
 			<HeaderLink href="/about" data-i18n="nav.about">About</HeaderLink>
 		</div>
 		<div class="header-actions">
-			<a href="/search" class="icon-btn search-btn" aria-label="Search" title="Search">
+			<a href={withBase('/search')} class="icon-btn search-btn" aria-label="Search" title="Search">
 				<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
 			</a>
 			<button type="button" class="icon-btn theme-toggle" aria-label="Toggle theme" title="Toggle theme">
@@ -26,7 +26,7 @@ import { i18n } from '../i18n';
 		</div>
 	</nav>
 </header>
-	<script define:vars={{ i18n }}>
+	<script define:vars={{ i18n, basePath: BASE_PATH }}>
 		function getTheme() {
 			return document.documentElement.getAttribute('data-theme') || 'light';
 		}
@@ -77,7 +77,8 @@ import { i18n } from '../i18n';
 				for (var i = 0; i < parts.length && obj; i++) obj = obj[parts[i]];
 				if (obj != null) el.placeholder = obj;
 			});
-			var path = (window.location.pathname || '/').replace(/\/$/, '') || '/';
+			var pathname = window.location.pathname || '/';
+			var path = (basePath ? pathname.replace(new RegExp('^' + basePath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), '') : pathname).replace(/\/$/, '') || '/';
 			if (path === '/search') document.title = i18n[lang].search.documentTitle;
 			else if (path === '/about') document.title = i18n[lang].about.documentTitle;
 			else document.title = i18n[lang].site.title;

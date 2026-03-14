@@ -1,5 +1,6 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
+import { withBase } from '../consts';
 
 type Props = HTMLAttributes<'a'>;
 
@@ -15,7 +16,7 @@ const isActive =
 	(href === '/search' && pathname === '/search');
 ---
 
-<a href={href} class:list={[className, { active: isActive }]} {...props}>
+<a href={withBase(href)} class:list={[className, { active: isActive }]} {...props}>
 	<slot />
 </a>
 <style>
