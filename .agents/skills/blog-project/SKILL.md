@@ -1,6 +1,6 @@
 ---
 name: blog-project
-description: Conventions and structure for this Astro blog (QuincySnow). Use when editing the blog, adding pages or links, changing navigation, or working in site/ or content. Covers base path, internal links, i18n, layout, and package manager (Bun only).
+description: Conventions and structure for this Astro blog (QuincySnow). Use when editing the blog, adding pages or links, changing navigation, or working in site/ or content. Covers base path, internal links, i18n, layout, package manager (Bun only), and Find Skills / adding community skills (use bunx, not npm/npx).
 ---
 
 # Blog 项目约定
@@ -13,7 +13,14 @@ description: Conventions and structure for this Astro blog (QuincySnow). Use whe
 - 安装依赖：`bun install`（在 `site/` 下执行）。
 - 开发：`bun run dev`；构建：`bun run build`；其它脚本一律用 `bun run <script>`。
 - 添加依赖时用 `bun add <pkg>` 或 `bun add -d <pkg>`，不要写 `npm install` / `npm i` / `yarn` / `pnpm` 等。
-- 文档、注释、Skill 中的示例命令均以 Bun 为准。
+- 文档、注释、Skill 中的示例命令均以 Bun 为准；本仓库内所有 Skills（含 astro、deploy-to-vercel 等）的 CLI 示例已统一为 `bunx`/`bun run`，不使用 `npx`/`npm run`。
+
+### 查找与添加 Skills（Find Skills）
+
+- **查找 / 添加社区 Skills**（如从 [SkillsMP](https://skillsmp.com/) 或 GitHub 安装）时，一律使用 **`bunx`**，不用 `npx`：
+  - 添加 Skill：`bunx skills add <owner/repo>` 或 `bunx skillsmp add …`
+  - 不要写 `npx add-skill`、`npx skills add`、`npm install -g` 等。
+- 本仓库内涉及「找 Skill / 装 Skill」的说明与示例均以 `bunx` 为准。
 
 ## 项目位置与 base
 

@@ -138,8 +138,9 @@ The Vercel CLI isn't set up at all.
 
 1. **Install the CLI (if not already installed):**
    ```bash
-   npm install -g vercel
+   bun install -g vercel
    ```
+   Or run once without installing: `bunx vercel ...`
 
 2. **Authenticate:**
    ```bash

@@ -22,11 +22,11 @@ CLI looks for `astro.config.js`, `astro.config.mjs`, `astro.config.cjs`, and `as
 
 ### CLI Commands
 
-- `npx astro dev` -  Start the development server.
-- `npx astro build` - Build your project and write it to disk.
-- `npx astro check` - Check your project for errors.
-- `npx astro add` - Add an integration.
-- `npmx astro sync` - Generate TypeScript types for all Astro modules.
+- `bunx astro dev` -  Start the development server.
+- `bunx astro build` - Build your project and write it to disk.
+- `bunx astro check` - Check your project for errors.
+- `bunx astro add` - Add an integration.
+- `bunx astro sync` - Generate TypeScript types for all Astro modules.
 
 **Re-run after adding/changing plugins.**
 
@@ -60,22 +60,22 @@ Deploy to your favorite server, serverless, or edge host with build adapters. Us
 
 **Add [Node.js](https://docs.astro.build/en/guides/integrations-guide/node) adapter using astro add:**
 ```
-npx astro add node --yes
+bunx astro add node --yes
 ```
 
 **Add [Cloudflare](https://docs.astro.build/en/guides/integrations-guide/cloudflare) adapter using astro add:**
 ```
-npx astro add cloudflare --yes
+bunx astro add cloudflare --yes
 ```
 
 **Add [Netlify](https://docs.astro.build/en/guides/integrations-guide/netlify) adapter using astro add:**
 ```
-npx astro add netlify --yes
+bunx astro add netlify --yes
 ```
 
 **Add [Vercel](https://docs.astro.build/en/guides/integrations-guide/vercel) adapter using astro add:**
 ```
-npx astro add vercel --yes
+bunx astro add vercel --yes
 ```
 
 [Other Community adapters](https://astro.build/integrations/2/?search=&categories%5B%5D=adapters)
