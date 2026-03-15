@@ -6,6 +6,7 @@ modDatetime: 2026-03-14T00:00:00Z
 draft: false
 tags:
   - ansible
+  - sshpass
   - automation
   - devops
   - linux
@@ -36,6 +37,24 @@ ansible-playbook --version
 ```
 
 若需要较新版本，可启用 PPA（Ubuntu）或使用 pip/uv 安装（见下文）。
+
+### sshpass（密码登录时可选）
+
+当使用**密码**而非 SSH 密钥连接远程主机时，Ansible 依赖 `sshpass` 在非交互下传密码。
+
+- **Ubuntu / Debian**：
+
+```bash
+sudo apt install -y sshpass
+```
+
+- **macOS**（Homebrew 不提供 sshpass，可用 ssh 密钥或 expect 等替代；若从源码装需先安装 Xcode 命令行工具）：
+
+```bash
+brew install hudochenkov/sshpass/sshpass
+```
+
+安装后，执行 playbook 时加上 `-k`（或 `--ask-pass`）让 Ansible 提示输入 SSH 密码；Ansible 会调用 sshpass 传密码。生产环境更推荐配置 **SSH 密钥**，避免密码落盘或命令行历史。
 
 ### macOS
 

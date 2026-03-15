@@ -6,6 +6,7 @@ modDatetime: 2026-03-14T00:00:00Z
 draft: false
 tags:
   - ansible
+  - sshpass
   - automation
   - devops
   - linux
@@ -36,6 +37,24 @@ ansible-playbook --version
 ```
 
 For a newer version, you can enable a PPA (Ubuntu) or install via pip/uv (see below).
+
+### sshpass (optional, for password-based SSH)
+
+When you use **password** instead of SSH keys to connect to hosts, Ansible uses `sshpass` to pass the password non-interactively.
+
+- **Ubuntu / Debian**:
+
+```bash
+sudo apt install -y sshpass
+```
+
+- **macOS** (Homebrew does not ship sshpass; you can use SSH keys or tools like expect instead; or install from a tap):
+
+```bash
+brew install hudochenkov/sshpass/sshpass
+```
+
+After installing, run playbooks with `-k` (or `--ask-pass`) so Ansible prompts for the SSH password; it will use sshpass to supply it. For production, **SSH keys** are recommended to avoid storing passwords or leaving them in shell history.
 
 ### macOS
 
