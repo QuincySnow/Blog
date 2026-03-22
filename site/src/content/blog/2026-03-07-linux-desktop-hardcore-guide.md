@@ -48,8 +48,7 @@ lang: zh
 
 ---
 
-<div id="kde-gnome"></div>
-## 一、Ubuntu 切换 KDE 并清理 GNOME
+## 一、Ubuntu 切换 KDE 并清理 GNOME<span id="kde-gnome"></span>
 
 > **警告：** 卸载默认桌面环境有风险，操作前请先备份重要数据。
 
@@ -114,8 +113,7 @@ sudo apt install konsole plasma-nm
 
 ---
 
-<div id="rclone-protondrive"></div>
-## 二、Rclone 挂载 Proton Drive 自动重启
+## 二、Rclone 挂载 Proton Drive 自动重启<span id="rclone-protondrive"></span>
 
 ### 1) 常见报错
 
@@ -188,8 +186,7 @@ tail -f ~/rclone-proton.log
 
 ---
 
-<div id="ssh-permission-fix"></div>
-## 三、SSH 私钥 bad permissions 修复
+## 三、SSH 私钥 bad permissions 修复<span id="ssh-permission-fix"></span>
 
 跨系统复制 `~/.ssh` 后常见权限错乱。SSH 对私钥权限要求极严，过宽会直接拒绝。
 
@@ -229,8 +226,7 @@ ssh -T git@github.com
 
 ---
 
-<div id="fcitx5-reinstall"></div>
-## 四、Fcitx5 中文输入法彻底重装
+## 四、Fcitx5 中文输入法彻底重装<span id="fcitx5-reinstall"></span>
 
 在 Ubuntu/Debian 中，输入法失效（图标消失、无法输入中文、候选框不显示）很常见。以下是完整重装方案。
 
@@ -315,26 +311,24 @@ sudo apt install fcitx5-frontend-gtk2 fcitx5-frontend-gtk3 fcitx5-frontend-qt5
 
 ---
 
-<div id="dev-env-setup"></div>
-## 五、开发环境部署（全家桶分类版）
+## 五、开发环境部署（全家桶分类版）<span id="dev-env-setup"></span>
 
 这一节给你一套 Linux 桌面可长期维护的"开发环境全家桶"，并按生态分类，方便跳转。
 
 ### 开发环境目录
 
-- [5.1 基础能力（必装）](#dev-base)
-- [5.2 Python（uv / pyenv / poetry）](#dev-python)
-- [5.3 Node.js（fnm / pnpm）](#dev-node)
-- [5.4 Bun](#dev-bun)
-- [5.5 Go](#dev-go)
-- [5.6 Rust](#dev-rust)
-- [5.7 Ruby（rbenv / bundler）](#dev-ruby)
-- [5.8 Java（SDKMAN）](#dev-java)
-- [5.9 PHP（Composer）](#dev-php)
-- [5.10 C/C++（GCC / CMake / Clang）](#dev-cpp)
+- [5.1 基础能力（必装）](#5-1-基础能力必装)
+- [5.2 Python（uv / pyenv / poetry）](#5-2-pythonuv-pyenv-poetry)
+- [5.3 Node.js（fnm / pnpm）](#5-3-nodejsfnm-pnpm)
+- [5.4 Bun](#5-4-bun)
+- [5.5 Go](#5-5-go)
+- [5.6 Rust](#5-6-rust)
+- [5.7 Ruby（rbenv / bundler）](#5-7-rubyrbenv-bundler)
+- [5.8 Java（SDKMAN）](#5-8-javasdkman)
+- [5.9 PHP（Composer）](#5-9-phpcomposer)
+- [5.10 C/C++（GCC / CMake / Clang）](#5-10-cc-gcc-cmake-clang)
 
-<div id="dev-base"></div>
-### 5.1 基础能力（必装）
+### 5.1 基础能力（必装）<span id="5-1-基础能力必装"></span>
 
 先确认 Snap 可用：
 
@@ -351,8 +345,7 @@ EOF
 source ~/.zshrc
 ```
 
-<div id="dev-python"></div>
-### 5.2 Python（uv / pyenv / poetry）
+### 5.2 Python（uv / pyenv / poetry）<span id="5-2-pythonuv-pyenv-poetry"></span>
 
 `uv`（优先）：
 
@@ -382,8 +375,7 @@ curl -sSL https://install.python-poetry.org | python3 -
 poetry --version
 ```
 
-<div id="dev-node"></div>
-### 5.3 Node.js（fnm / pnpm）
+### 5.3 Node.js（fnm / pnpm）<span id="5-3-nodejsfnm-pnpm"></span>
 
 `fnm`（Node 版本管理）：
 
@@ -406,8 +398,7 @@ corepack prepare pnpm@latest --activate
 pnpm -v
 ```
 
-<div id="dev-bun"></div>
-### 5.4 Bun
+### 5.4 Bun<span id="5-4-bun"></span>
 
 ```bash
 snap find bun
@@ -415,8 +406,7 @@ sudo snap install bun-js --classic || curl -fsSL https://bun.sh/install | sh
 bun --version
 ```
 
-<div id="dev-go"></div>
-### 5.5 Go
+### 5.5 Go<span id="5-5-go"></span>
 
 ```bash
 snap find go
@@ -434,8 +424,7 @@ EOF
 source ~/.zshrc
 ```
 
-<div id="dev-rust"></div>
-### 5.6 Rust
+### 5.6 Rust<span id="5-6-rust"></span>
 
 ```bash
 snap find rustup
@@ -445,8 +434,7 @@ rustc --version
 cargo --version
 ```
 
-<div id="dev-ruby"></div>
-### 5.7 Ruby（rbenv / bundler）
+### 5.7 Ruby（rbenv / bundler）<span id="5-7-rubyrbenv-bundler"></span>
 
 Ruby（Snap 快速可用）：
 
@@ -475,8 +463,7 @@ gem install bundler
 bundle -v
 ```
 
-<div id="dev-java"></div>
-### 5.8 Java（SDKMAN）
+### 5.8 Java（SDKMAN）<span id="5-8-javasdkman"></span>
 
 ```bash
 curl -s "https://get.sdkman.io" | bash
@@ -485,8 +472,7 @@ sdk install java 21.0.1-open
 java -v
 ```
 
-<div id="dev-php"></div>
-### 5.9 PHP（Composer）
+### 5.9 PHP（Composer）<span id="5-9-phpcomposer"></span>
 
 PHP（Snap）：
 
@@ -505,8 +491,7 @@ sudo mv composer.phar /usr/local/bin/composer
 composer -V
 ```
 
-<div id="dev-cpp"></div>
-### 5.10 C/C++（GCC / CMake / Clang）
+### 5.10 C/C++（GCC / CMake / Clang）<span id="5-10-cc-gcc-cmake-clang"></span>
 
 ```bash
 snap find cmake
@@ -520,8 +505,7 @@ clang --version
 
 ---
 
-<div id="closing"></div>
-## 结语
+## 结语<span id="closing"></span>
 
 这篇合集覆盖了 Linux 桌面环境最常见也最容易"卡住"的五类问题。  
 **尤其注意：** 修改输入法环境变量后必须注销或重启，否则配置不会生效。
