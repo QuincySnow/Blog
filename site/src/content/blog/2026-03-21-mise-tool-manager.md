@@ -149,14 +149,18 @@ python = "3.12"
 
 ## 常用命令速查
 
-```bash
-mise list              # 查看已安装工具及版本
-mise upgrade           # 升级所有工具到最新
-mise upgrade --bump    # 升级所有工具并更新配置文件中的版本号
-mise run <task>        # 运行 .mise.toml 中定义的 Task
-mise settings          # 查看/修改 mise 配置
-mise doctor            # 检查 mise 状态和潜在问题
-```
+| 命令 | 说明 |
+|------|------|
+| `mise ls` | 查看已安装工具及版本 |
+| `mise upgrade` | 升级所有工具到最新 |
+| `mise upgrade --bump` | 升级所有工具并更新配置文件中的版本号 |
+| `mise use -g <tool>@<version>` | 全局安装/切换工具（如 `mise use -g node@latest`） |
+| `mise use <tool>` | 读取当前目录 .mise.toml，联网搜索并安装对应版本 |
+| `mise uninstall --all <tool> && mise unuse -g <tool>` | 卸载指定工具（全局） |
+| `mise unuse <tool>` | 从当前目录 .mise.toml 移除并卸载指定工具 |
+| `mise run <task>` | 运行 .mise.toml 中定义的 Task |
+| `mise settings` | 查看/修改 mise 配置 |
+| `mise doctor` | 检查 mise 状态和潜在问题 |
 
 ## mise 的 backends：core vs aqua
 
