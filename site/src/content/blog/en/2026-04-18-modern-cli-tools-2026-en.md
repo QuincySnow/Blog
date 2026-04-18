@@ -129,7 +129,7 @@ Prettier resource monitoring (CPU, memory, disk, network), theme support.
 sudo apt install btop
 ```
 
-**Controls**: ↑↓ to move, Enter to enter directory, ← to go back, k to kill process, q to quit.
+**Controls**: Arrow keys/mouse to switch panels, k to kill process, q to quit.
 
 ## 8. gdu (Disk Space Analysis)
 
@@ -140,7 +140,7 @@ sudo apt install gdu
 gdu /home/asus
 ```
 
-**Controls**: ↑↓ to move, Enter to enter directory, d to delete, q to quit.
+**Controls**: ↑↓ to move, Enter to enter directory, ← to go back, d to delete, q to quit.
 
 ## The Ultimate Combo: fzf + fd + rg + bat
 
