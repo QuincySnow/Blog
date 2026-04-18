@@ -112,6 +112,28 @@ description: Conventions and structure for this Astro blog (QuincySnow). Use whe
 - [ ] 关于页新增项目：在 `projects` 与 i18n `about` 中补全，避免在模板中使用 `Record<string, string>` 类型断言
 - [ ] 构建通过：`cd site && bun run build`（必须用 Bun，不要用 npm run build）
 
+## 检查清单（从 AI 草稿创建文章时）
+
+- [ ] 创建中文版 `site/src/content/blog/zh/YYYY-MM-DD-slug.md`，frontmatter 含 `lang: zh`
+- [ ] 删除 AI 生成的「建议」「推荐」等非内容段落
+- [ ] 创建英文版 `site/src/content/blog/en/YYYY-MM-DD-slug-en.md`，frontmatter 含 `lang: en`
+- [ ] description 含冒号时加引号：`description: "内容"`
+- [ ] 构建通过：`cd site && bun run build`
+
+## 从 AI 草稿创建文章
+
+当用户提供了 AI 生成的草稿内容时，按以下流程处理：
+
+1. **创建中文版**：在 `site/src/content/blog/zh/` 下创建 `YYYY-MM-DD-slug.md`，frontmatter 包含 `lang: zh`
+2. **清理 AI 内容**：删除草稿中的「写博客建议」「相关阅读推荐」等 AI 输出痕迹段落，保留纯内容
+3. **创建英文版**：在 `site/src/content/blog/en/` 下创建 `YYYY-MM-DD-slug-en.md`，frontmatter 包含 `lang: en`
+4. **验证构建**：`cd site && bun run build` 确保通过
+
+### YAML 注意事项
+
+- frontmatter 中的 description 包含冒号时必须加引号：`description: "内容"`
+- 避免使用未转义的冒号导致解析错误
+
 ## Markdown 锚点语法注意事项
 
 **禁止使用** `{#anchor}` 语法！此语法会导致标题渲染异常（显示为纯文本而非 `<h2>`/`<h3>` 标签）。
