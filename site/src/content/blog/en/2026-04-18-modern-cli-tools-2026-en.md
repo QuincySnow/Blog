@@ -30,7 +30,13 @@ sudo apt install fzf
 source <(fzf --zsh)
 ```
 
-Shortcuts: Ctrl+R (history), Ctrl+T (files).
+**Shortcuts**: Ctrl+R (history), Ctrl+T (files).
+
+**Advanced usage**:
+```bash
+fzf --preview 'bat --style=numbers --color=always {}'
+fd -e go | fzf
+```
 
 ## 2. ripgrep (Code Search)
 
@@ -40,6 +46,14 @@ Ultra-fast code search, automatically ignores .gitignore.
 sudo apt install ripgrep
 ```
 
+**Common examples**:
+```bash
+rg "TODO"                    # Search for TODO
+rg -t go "func main"         # Search only in Go files
+rg -l "error"                # Show only filenames with matches
+rg -C 3 "panic"              # Show 3 lines of context
+```
+
 ## 3. zoxide (Smart cd)
 
 Remembers your frequently visited directories, `z proj` jumps to your project directory.
@@ -47,6 +61,13 @@ Remembers your frequently visited directories, `z proj` jumps to your project di
 ```bash
 sudo apt install zoxide
 eval "$(zoxide init zsh)"
+```
+
+**Common examples**:
+```bash
+z projects                   # Jump to frequently visited projects
+z proj                       # Fuzzy match works too
+zi projects                  # Interactive selection with fzf
 ```
 
 ## 4. eza (File Listing)
@@ -59,6 +80,15 @@ alias ls='eza --icons --git'
 alias ll='eza -l --icons --git'
 ```
 
+**Common examples**:
+```bash
+eza                          # Normal list with icons
+eza -l                       # Long format
+eza -la                      # Show hidden files
+eza --tree                   # Tree view
+eza --git                    # Show Git status
+```
+
 ## 5. bat (File Viewing)
 
 `cat` + syntax highlighting + Git integration + paging.
@@ -66,6 +96,13 @@ alias ll='eza -l --icons --git'
 ```bash
 sudo apt install bat
 alias cat='bat'
+```
+
+**Common examples**:
+```bash
+bat main.go                  # View with syntax highlighting
+bat -n main.go               # Show line numbers only
+bat header.md content.md     # Concatenate multiple files
 ```
 
 ## 6. fd-find (File Finding)
@@ -76,6 +113,14 @@ Faster, simpler, supports .gitignore.
 sudo apt install fd-find
 ```
 
+**Common examples**:
+```bash
+fd main.go                   # Find file
+fd -e go                     # Find only .go files
+fd -t d projects             # Find directories only
+fd "test" --changed-within 7d # Files modified in last 7 days
+```
+
 ## 7. btop (System Monitoring)
 
 Prettier resource monitoring (CPU, memory, disk, network), theme support.
@@ -83,6 +128,8 @@ Prettier resource monitoring (CPU, memory, disk, network), theme support.
 ```bash
 sudo apt install btop
 ```
+
+**Controls**: Arrow keys/mouse to switch panels, k to kill process, q to quit.
 
 ## 8. gdu (Disk Space Analysis)
 
@@ -92,6 +139,8 @@ Written in Go, faster than ncdu (especially on SSD), interactive TUI, mouse supp
 sudo apt install gdu
 gdu /home/asus
 ```
+
+**Controls**: ↑↓ to move, Enter to enter directory, d to delete, q to quit.
 
 ## The Ultimate Combo: fzf + fd + rg + bat
 

@@ -30,7 +30,13 @@ sudo apt install fzf
 source <(fzf --zsh)
 ```
 
-快捷键：Ctrl+R（历史）、Ctrl+T（文件）。
+**快捷键**：Ctrl+R（历史）、Ctrl+T（文件）。
+
+**高级用法**：
+```bash
+fzf --preview 'bat --style=numbers --color=always {}'
+fd -e go | fzf
+```
 
 ## 2. ripgrep（代码搜索）
 
@@ -40,6 +46,14 @@ source <(fzf --zsh)
 sudo apt install ripgrep
 ```
 
+**常用示例**：
+```bash
+rg "TODO"                    # 搜索 TODO
+rg -t go "func main"         # 只在 Go 文件中搜索
+rg -l "error"                # 只显示包含匹配的文件名
+rg -C 3 "panic"              # 显示匹配行前后 3 行上下文
+```
+
 ## 3. zoxide（智能 cd）
 
 记住你常去的目录，`z proj` 就能跳到项目目录。
@@ -47,6 +61,13 @@ sudo apt install ripgrep
 ```bash
 sudo apt install zoxide
 eval "$(zoxide init zsh)"
+```
+
+**常用示例**：
+```bash
+z projects                   # 跳转到经常去的 projects 目录
+z proj                       # 模糊匹配也行
+zi projects                  # 用 fzf 交互选择
 ```
 
 ## 4. eza（文件列表）
@@ -59,6 +80,15 @@ alias ls='eza --icons --git'
 alias ll='eza -l --icons --git'
 ```
 
+**常用示例**：
+```bash
+eza                          # 普通列表（带图标）
+eza -l                       # 长格式
+eza -la                      # 显示隐藏文件
+eza --tree                   # 树状显示目录
+eza --git                    # 显示 Git 状态
+```
+
 ## 5. bat（文件查看）
 
 `cat` + 语法高亮 + Git 集成 + 分页。
@@ -66,6 +96,13 @@ alias ll='eza -l --icons --git'
 ```bash
 sudo apt install bat
 alias cat='bat'
+```
+
+**常用示例**：
+```bash
+bat main.go                  # 带高亮查看文件
+bat -n main.go               # 只显示行号
+bat header.md content.md     # 合并多个文件
 ```
 
 ## 6. fd-find（文件查找）
@@ -76,6 +113,14 @@ alias cat='bat'
 sudo apt install fd-find
 ```
 
+**常用示例**：
+```bash
+fd main.go                   # 找文件
+fd -e go                     # 只找 .go 文件
+fd -t d projects             # 只找目录
+fd "test" --changed-within 7d # 最近 7 天修改的文件
+```
+
 ## 7. btop（系统监控）
 
 更漂亮、资源监控（CPU、内存、磁盘、网络），支持主题。
@@ -83,6 +128,8 @@ sudo apt install fd-find
 ```bash
 sudo apt install btop
 ```
+
+**界面操作**：箭头键/鼠标切换面板，k 杀死进程，q 退出。
 
 ## 8. gdu（磁盘空间分析）
 
@@ -92,6 +139,8 @@ Go 编写，比 ncdu 更快（尤其是 SSD），交互式 TUI，支持鼠标、
 sudo apt install gdu
 gdu /home/asus
 ```
+
+**界面操作**：↑↓ 移动，Enter 进入目录，d 删除，q 退出。
 
 ## fzf + fd + rg + bat 组合的无敌用法
 
