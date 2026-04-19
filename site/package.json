@@ -20,7 +20,7 @@
     "@astrojs/mdx": "^5.0.0",
     "@astrojs/rss": "^4.0.17",
     "@astrojs/sitemap": "^3.7.1",
-    "astro": "^6.0.4",
+    "astro": "^6.1.8",
     "sharp": "^0.34.3"
   },
   "devDependencies": {
