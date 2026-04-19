@@ -130,7 +130,7 @@ const titleSuffix = DEFAULT_LANG === 'zh' ? `标签：${tag}` : `Tag: ${tag}`;
 							const postLang = post.data.lang ?? 'zh';
 							return (
 								<li class:list={['post-lang-' + postLang]} data-post-lang={postLang}>
-									<a href={withBase(`/blog/${post.id}/`)} class="hover-lift">
+									<a href={withBase(`/posts/${post.id}/`)} class="hover-lift">
 										{post.data.heroImage && (
 											<Image width={640} height={320} src={post.data.heroImage} alt="" />
 										)}

@@ -4,12 +4,12 @@ export const i18n = {
 	en: {
 		nav: {
 			home: 'Home',
-			blog: 'Articles',
+			posts: 'Articles',
 			tags: 'Tags',
 			about: 'About',
 			search: 'Search',
 		},
-		blog: {
+		posts: {
 			documentTitle: 'Articles - QuincySnow',
 			description: 'All posts',
 		},
@@ -82,12 +82,12 @@ export const i18n = {
 	zh: {
 		nav: {
 			home: '首页',
-			blog: '文章',
+			posts: '文章',
 			tags: '标签',
 			about: '关于',
 			search: '搜索',
 		},
-		blog: {
+		posts: {
 			documentTitle: '文章 - QuincySnow',
 			description: '全部文章',
 		},

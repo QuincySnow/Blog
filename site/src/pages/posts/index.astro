@@ -8,7 +8,7 @@ import Header from '../../components/Header.astro';
 import { withBase } from '../../consts';
 import { DEFAULT_LANG, i18n } from '../../i18n';
 
-const meta = i18n[DEFAULT_LANG].blog;
+const meta = i18n[DEFAULT_LANG].posts;
 
 const allPosts = await getCollection('blog');
 const posts = allPosts
@@ -102,7 +102,7 @@ const firstImageSrc = firstHero ? getImage({ src: firstHero, width: 720, height:
 	<body>
 		<Header searchIndex={searchIndex} />
 		<main class="animate-fade-in">
-			<h1 class="blog-page-title" data-i18n="nav.blog">博客</h1>
+			<h1 class="blog-page-title" data-i18n="nav.posts">博客</h1>
 			<section aria-label="Article list">
 				<ul class="blog-list animate-stagger-children">
 					{
@@ -111,7 +111,7 @@ const firstImageSrc = firstHero ? getImage({ src: firstHero, width: 720, height:
 							const isFirstImage = index === 0 && post.data.heroImage;
 							return (
 							<li class:list={['post-lang-' + postLang]} data-post-lang={postLang}>
-								<a href={withBase(`/blog/${post.id}/`)} class="hover-lift">
+								<a href={withBase(`/posts/${post.id}/`)} class="hover-lift">
 									{post.data.heroImage && (
 										<Image
 											width={720}

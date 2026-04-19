@@ -108,7 +108,7 @@ const searchIndex = allPosts.map((p) => ({
 						const postLang = post.data.lang ?? 'zh';
 						return (
 						<li class:list={['post-lang-' + postLang]} data-post-lang={postLang}>
-							<a href={withBase(`/blog/${post.id}/`)} class="transition-colors duration-200 hover-lift">
+							<a href={withBase(`/posts/${post.id}/`)} class="transition-colors duration-200 hover-lift">
 								<span class="post-title">{post.data.title}</span>
 								<span class="post-date">
 									<FormattedDate date={post.data.pubDate} />
@@ -118,7 +118,7 @@ const searchIndex = allPosts.map((p) => ({
 					); })
 				}
 			</ul>
-			<a href={withBase('/blog/')} class="more-link transition-colors duration-200 hover-scale" data-i18n="home.morePosts">全部文章 →</a>
+			<a href={withBase('/posts/')} class="more-link transition-colors duration-200 hover-scale" data-i18n="home.morePosts">全部文章 →</a>
 		</main>
 		<Footer />
 	</body>

@@ -11,7 +11,7 @@ const isRoot = pathname === '/';
 const isActive =
 	href === pathname ||
 	(href === '/' && isRoot) ||
-	(href === '/blog' && (pathname === '/blog' || pathname.startsWith('/blog/'))) ||
+	(href === '/posts' && (pathname === '/posts' || pathname.startsWith('/posts/'))) ||
 	(href === '/tags' && pathname === '/tags') ||
 	(href === '/about' && pathname === '/about');
 ---

@@ -27,7 +27,7 @@ const searchIndexJson = JSON.stringify(searchIndex);
 		<h2><a href={withBase('/')} class="transition-colors duration-200">{SITE_TITLE}</a></h2>
 		<div class="internal-links">
 			<HeaderLink href="/" data-i18n="nav.home">Home</HeaderLink>
-			<HeaderLink href="/blog" data-i18n="nav.blog">Articles</HeaderLink>
+			<HeaderLink href="/posts" data-i18n="nav.posts">Articles</HeaderLink>
 			<HeaderLink href="/tags" data-i18n="nav.tags">Tags</HeaderLink>
 			<HeaderLink href="/about" data-i18n="nav.about">About</HeaderLink>
 		</div>
@@ -126,7 +126,7 @@ const searchIndexJson = JSON.stringify(searchIndex);
 			var pathname = window.location.pathname || '/';
 			var path = (basePath ? pathname.replace(new RegExp('^' + basePath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), '') : pathname).replace(/\/$/, '') || '/';
 			if (path === '/tags') document.title = i18n[lang].tags.documentTitle;
-			else if (path === '/blog') document.title = i18n[lang].blog.documentTitle;
+			else if (path === '/posts') document.title = i18n[lang].posts.documentTitle;
 			else if (path === '/about') document.title = i18n[lang].about.documentTitle;
 			else document.title = i18n[lang].site.title;
 			formatAllDates(lang);
@@ -185,7 +185,7 @@ const searchIndexJson = JSON.stringify(searchIndex);
 			var html = '<ul class="search-overlay-list">';
 			var locale = i18n[currentLang].dateLocale || (currentLang === 'zh' ? 'zh-CN' : 'en-US');
 			list.slice(0, 12).forEach(function (item) {
-				var href = basePath + '/blog/' + item.id + '/';
+				var href = basePath + '/posts/' + item.id + '/';
 				var dateStr = item.pubDate ? new Date(item.pubDate).toLocaleDateString(locale, { month: 'short', day: 'numeric', year: 'numeric' }) : '';
 				var tagsStr = (item.tags && item.tags.length) ? item.tags.slice(0, 4).join(' · ') : '';
 				html += '<li><a href="' + href + '"><span class="search-overlay-result-title">' + escapeHtml(item.title) + '</span><span class="search-overlay-result-meta">' + dateStr + (tagsStr ? ' · ' + escapeHtml(tagsStr) : '') + '</span></a></li>';
