@@ -35,7 +35,7 @@ description: Conventions and structure for this Astro blog (QuincySnow). Use whe
   - **`withBase(path: string): string`**：给路径加上 base 前缀
 - 规则：
   - 所有站内 **`href`**（导航、列表、搜索页、资源链接等）一律用 **`withBase('/...')`** 生成。
-  - 示例：`href={withBase('/')}`、`href={withBase('/about')}`、`href={withBase(\`/blog/${post.id}/\`)}`。
+  - 示例：`href={withBase('/')}`、`href={withBase('/about')}`、`href={withBase(\`/posts/${post.id}/\`)}`。
 - 已统一使用 withBase 的位置：
   - **Header**：站名、首页/博客/关于（通过 HeaderLink）、搜索按钮
   - **HeaderLink.astro**：对传入的 `href` 用 `withBase(href)` 再输出
@@ -46,8 +46,8 @@ description: Conventions and structure for this Astro blog (QuincySnow). Use whe
 ## 路由与页面
 
 - 首页：`site/src/pages/index.astro` → `/`（实际访问为 `/blog/`）
-- 博客列表：`site/src/pages/blog/index.astro` → `/blog`
-- 文章详情：`site/src/pages/blog/[...slug].astro` → `/blog/:slug`
+- 文章列表：`site/src/pages/posts/index.astro` → `/posts`
+- 文章详情：`site/src/pages/posts/[...slug].astro` → `/posts/:slug`
 - 关于：`site/src/pages/about.astro` → `/about`（含开源作品集，详见下方「关于页与开源作品集」）。
 - 标签列表：`site/src/pages/tags.astro` → `/tags`
 - 标签详情（某标签下的文章列表）：`site/src/pages/tags/[tag].astro` → `/tags/:tag`，链接用 `withBase('/tags/' + encodeURIComponent(tagName))`。
@@ -93,11 +93,11 @@ description: Conventions and structure for this Astro blog (QuincySnow). Use whe
 
 在 Markdown 文章正文中引用站内其他文章时，应使用**带 base 的绝对路径**：
 
-- **中文文章引用中文文章**：`[Fan Control 使用指南](/blog/blog/zh/2026-04-19-fan-control-ddu-guide)`
-- **英文文章引用英文文章**：`[Fan Control Guide](/blog/blog/en/2026-04-19-fan-control-ddu-guide-en)`
-- **英文文章引用中文文章**：使用 `/blog/blog/zh/` 前缀，如 `[中文版](/blog/blog/zh/2026-04-19-fan-control-ddu-guide)`
+- **中文文章引用中文文章**：`[Fan Control 使用指南](/blog/posts/zh/2026-04-19-fan-control-ddu-guide)`
+- **英文文章引用英文文章**：`[Fan Control Guide](/blog/posts/en/2026-04-19-fan-control-ddu-guide-en)`
+- **英文文章引用中文文章**：使用 `/blog/posts/zh/` 前缀，如 `[中文版](/blog/posts/zh/2026-04-19-fan-control-ddu-guide)`
 
-**注意**：因为每篇文章构建后位于独立子目录（如 `/blog/zh/2026-04-19-amd-driver-install-guide/index.html`），相对路径会指向错误的子目录，必须使用带 base 前缀的绝对路径。
+**注意**：因为每篇文章构建后位于独立子目录（如 `/blog/posts/zh/2026-04-19-amd-driver-install-guide/index.html`），相对路径会指向错误的子目录，必须使用带 base 前缀的绝对路径。
 
 **错误示例**：
 ```markdown
@@ -106,8 +106,8 @@ description: Conventions and structure for this Astro blog (QuincySnow). Use whe
 
 **正确示例**：
 ```markdown
-[DDU](/blog/zh/2026-04-19-fan-control-ddu-guide)  ✅
-[DDU](/blog/en/2026-04-19-fan-control-ddu-guide-en)  ✅
+[DDU](/blog/posts/zh/2026-04-19-fan-control-ddu-guide)  ✅
+[DDU](/blog/posts/en/2026-04-19-fan-control-ddu-guide-en)  ✅
 ```
 
 ## 布局与样式
@@ -130,7 +130,7 @@ description: Conventions and structure for this Astro blog (QuincySnow). Use whe
 - [ ] 新 head 资源（favicon、字体等）使用 withBase
 - [ ] 新图片/动图放入 `site/public/images/` 或 `site/public/gif/`，引用时用 `withBase('/images/...')` 或 `withBase('/gif/...')`
 - [ ] 新文章：中文稿加 `lang: zh`；英文稿用 `-en.md` 且加 `lang: en`；正文内跨语言引用用绝对路径
-- [ ] 文章内部链接使用带 base 的绝对路径（如 `/blog/zh/2026-04-19-fan-control-ddu-guide`）
+- [ ] 文章内部链接使用带 base 的绝对路径（如 `/blog/posts/zh/2026-04-19-fan-control-ddu-guide`）
 - [ ] 关于页新增项目：在 `projects` 与 i18n `about` 中补全，避免在模板中使用 `Record<string, string>` 类型断言
 - [ ] 构建通过：`cd site && bun run build`（必须用 Bun，不要用 npm run build）
 
