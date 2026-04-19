@@ -38,7 +38,7 @@ If you're experiencing these issues with AMD GPU on Windows 11:
 
 This is likely caused by **background service conflicts** from the full Adrenalin installation. AMD's complete driver includes numerous background processes (like Radeon Settings, AMD Link service, etc.) that compete with games for system resources, causing "micro-stutter."
 
-**Solution**: Use [DDU](2026-04-19-fan-control-ddu-guide-en) to completely uninstall the existing driver, then reinstall using **Driver Only** or **Minimal** mode. This "golden combo" has been verified by numerous gamers and can completely solve the Windows 11 micro-stutter issue.
+**Solution**: Use [DDU](/blog/en/2026-04-19-fan-control-ddu-guide-en) to completely uninstall the existing driver, then reinstall using **Driver Only** or **Minimal** mode. This "golden combo" has been verified by numerous gamers and can completely solve the Windows 11 micro-stutter issue.
 
 ## What is Driver Only / Minimal Mode?
 
@@ -62,7 +62,7 @@ What's excluded:
 
 ## How to Use Driver Only Mode?
 
-1. **Clean uninstall old driver**: It's recommended to use [DDU](2026-04-19-fan-control-ddu-guide-en) in safe mode to thoroughly clean old drivers
+1. **Clean uninstall old driver**: It's recommended to use [DDU](/blog/en/2026-04-19-fan-control-ddu-guide-en) in safe mode to thoroughly clean old drivers
 
 2. **Download driver**: Visit AMD official website, search your GPU model, download the corresponding driver
 
@@ -93,7 +93,7 @@ Fan Control supports:
 - Perfect compatibility with AMD drivers
 - More granular speed control
 
-See: [Complete Fan Control Guide and DDU](2026-04-19-fan-control-ddu-guide-en)
+See: [Complete Fan Control Guide and DDU](/blog/en/2026-04-19-fan-control-ddu-guide-en)
 
 ## Summary
 
