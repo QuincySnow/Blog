@@ -38,7 +38,7 @@ AMD Adrenalin 驱动安装程序默认会安装大量附加组件：
 
 这很可能是 Adrenalin 完整安装带来的**后台服务冲突**。AMD 的完整驱动包含大量后台进程（如 Radeon Settings、AMD Link 服务等），这些服务会与游戏争夺系统资源，导致"微卡"现象。
 
-**解决方案**：使用 [DDU](/blog/zh/2026-04-19-fan-control-ddu-guide) 彻底卸载现有驱动后，选择 **Driver Only** 或 **Minimal** 模式重新安装。这是一个经过大量玩家验证的"黄金组合"，可以完全解决 Windows 11 下的微卡问题。
+**解决方案**：使用 [DDU](/blog/blog/zh/2026-04-19-fan-control-ddu-guide) 彻底卸载现有驱动后，选择 **Driver Only** 或 **Minimal** 模式重新安装。这是一个经过大量玩家验证的"黄金组合"，可以完全解决 Windows 11 下的微卡问题。
 
 ## 什么是 Driver Only / Minimal 模式？
 
@@ -62,7 +62,7 @@ AMD Adrenalin 驱动安装程序默认会安装大量附加组件：
 
 ## 如何使用 Driver Only 模式？
 
-1. **彻底卸载旧驱动**：建议使用 [DDU](/blog/zh/2026-04-19-fan-control-ddu-guide) 在安全模式下彻底清除旧驱动
+1. **彻底卸载旧驱动**：建议使用 [DDU](/blog/blog/zh/2026-04-19-fan-control-ddu-guide) 在安全模式下彻底清除旧驱动
 
 2. **下载驱动**：访问 AMD 官网，搜索你的显卡型号，下载对应驱动
 
@@ -93,7 +93,7 @@ Fan Control 支持：
 - 与 AMD 驱动完美兼容
 - 更精细的转速控制
 
-详见：[彻底掌控散热——Fan Control 使用指南](/blog/zh/2026-04-19-fan-control-ddu-guide)
+详见：[彻底掌控散热——Fan Control 使用指南](/blog/blog/zh/2026-04-19-fan-control-ddu-guide)
 
 ## 总结
 

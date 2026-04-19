@@ -93,9 +93,9 @@ description: Conventions and structure for this Astro blog (QuincySnow). Use whe
 
 在 Markdown 文章正文中引用站内其他文章时，应使用**带 base 的绝对路径**：
 
-- **中文文章引用中文文章**：`[Fan Control 使用指南](/blog/zh/2026-04-19-fan-control-ddu-guide)`
-- **英文文章引用英文文章**：`[Fan Control Guide](/blog/en/2026-04-19-fan-control-ddu-guide-en)`
-- **英文文章引用中文文章**：使用 `/blog/zh/` 前缀，如 `[中文版](/blog/zh/2026-04-19-fan-control-ddu-guide)`
+- **中文文章引用中文文章**：`[Fan Control 使用指南](/blog/blog/zh/2026-04-19-fan-control-ddu-guide)`
+- **英文文章引用英文文章**：`[Fan Control Guide](/blog/blog/en/2026-04-19-fan-control-ddu-guide-en)`
+- **英文文章引用中文文章**：使用 `/blog/blog/zh/` 前缀，如 `[中文版](/blog/blog/zh/2026-04-19-fan-control-ddu-guide)`
 
 **注意**：因为每篇文章构建后位于独立子目录（如 `/blog/zh/2026-04-19-amd-driver-install-guide/index.html`），相对路径会指向错误的子目录，必须使用带 base 前缀的绝对路径。
 
