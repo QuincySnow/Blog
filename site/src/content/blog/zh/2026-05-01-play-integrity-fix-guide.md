@@ -100,3 +100,8 @@ lang: zh
 安装上述所有模块。
 
 🔁 重启设备。
+
+### 步骤 3：安装Aurora Store
+
+可安装F-Droid去安装管理开源软件们 [F-Droid](https://f-droid.org/en/)最推荐
+或在[Aurora Store](https://store.auroraoss.com/)安装也行

@@ -100,3 +100,9 @@ Install one Zygisk implementation compatible with your root environment.
 Install all modules above.
 
 🔁 Reboot device.
+
+### Step 3: Install Aurora Store
+
+You can install F-Droid to manage open source software: [F-Droid](https://f-droid.org/en/) (recommended)
+
+Or install via [Aurora Store](https://store.auroraoss.com/)
